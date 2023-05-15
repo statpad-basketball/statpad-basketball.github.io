@@ -1,0 +1,132 @@
+.articleHeader {
+    position: absolute;
+    width: 809px;
+    height: 106px;
+    left: 315px;
+    top: 205px;
+
+    font-family: 'Phetsarath';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 65px;
+    /* or 125% */
+
+    letter-spacing: -0.06em;
+
+    color: #070707;
+}
+
+.byLine {
+    position: absolute;
+    width: 809px;
+    height: 31px;
+    left: 315px;
+    top: 1077px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #000000;
+}
+
+.dateLine {
+    position: absolute;
+    width: 808px;
+    height: 31px;
+    left: 315px;
+    top: 1102px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+
+    color: #222222;
+}
+
+.headerImage {
+    position: absolute;
+    width: 809px;
+    height: 582px;
+    left: 315px;
+    top: 430px;
+}
+
+.textBlob1 {
+    position: absolute;
+    width: 809px;
+    height: 1053px;
+    left: 315px;
+    top: 1162px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+
+    color: #000000;
+}
+
+.textBlob2 {
+    position: absolute;
+    width: 809px;
+    height: 790px;
+    left: 315px;
+    top: 2878px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+
+    color: #000000;
+}
+
+.secondImage {
+    position: absolute;
+    width: 809px;
+    height: 555px;
+    left: 315px;
+    top: 2262px;
+}
+
+.headerImageCaption {
+    position: absolute;
+    width: 809px;
+    height: 31px;
+    left: 315px;
+    top: 1027px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: right;
+
+    color: #000000;
+}
+
+.secondImageCaption {
+    position: absolute;
+    width: 809px;
+    height: 31px;
+    left: 315px;
+    top: 2832px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: right;
+
+    color: #000000;
+}

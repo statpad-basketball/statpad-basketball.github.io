@@ -1,0 +1,174 @@
+.methodologyText {
+    position: absolute;
+    width: 589px;
+    height: 113px;
+    left: 62px;
+    top: 107px;
+}
+
+.hofCalcText {
+    position: absolute;
+    width: 826.67px;
+    height: 113px;
+    left: 62px;
+    top: 207px;
+    color: #E89E10;
+}
+
+.introHeadingText {
+    position: absolute;
+    width: 1317px;
+    height: 54.98px;
+    left: 62px;
+    top: 396px;
+
+    /*font-family: 'Open Sans';*/
+    font-style: italic;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 0.02em;
+
+    color: #000000;
+}
+
+.introBodyText {
+    position: absolute;
+    width: 1309px;
+    height: 188.99px;
+    left: 70px;
+    top: 524.01px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.secondHeadingText {
+    position: absolute;
+    width: 1317px;
+    height: 54.98px;
+    left: 47px;
+    top: 789px;
+
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 0.02em;
+
+    color: #000000;
+}
+
+.secondBodyText {
+    position: absolute;
+    width: 1309px;
+    height: 188.99px;
+    left: 55px;
+    top: 907.01px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.thirdHeadingText {
+    position: absolute;
+    width: 1317px;
+    height: 54.98px;
+    left: 47px;
+    top: 1171px;
+
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 0.02em;
+
+    color: #000000;
+}
+
+.thirdBodyText {
+    position: absolute;
+    width: 693px;
+    height: 569px;
+    left: 671px;
+    top: 1263px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.coefficientsTable {
+    position: absolute;
+    width: 540px;
+    height: 555px;
+    left: 73px;
+    top: 1268px;
+
+    /*background: #474747;*/
+}
+
+.ackHeader {
+    position: absolute;
+    width: 1317px;
+    height: 54.98px;
+    left: 62px;
+    top: 1730px;
+
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 0.02em;
+
+    color: #000000;
+}
+
+.ackBody {
+    position: absolute;
+    width: 1309px;
+    height: 188.99px;
+    left: 70px;
+    top: 1798.01px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.headerPlayers {
+    position: absolute;
+    width: 502px;
+    height: 240px;
+    left: 850px;
+    top: 115px;
+}
