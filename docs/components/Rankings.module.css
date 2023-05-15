@@ -1,0 +1,120 @@
+.lebronPanel {
+    position: absolute;
+    width: 225px;
+    height: 284px;
+    left: 110px;
+    top: 724px;
+}
+
+.russellPanel {
+    position: absolute;
+    width: 213px;
+    height: 175px;
+    left: 1113px;
+    top: 797px;
+}
+
+.lebronTextBubble {
+    position: absolute;
+    width: 391px;
+    height: 112px;
+    left: -10px;
+    top: 1008px;
+
+    background: #F2F0F0;
+    border-radius: 16px;
+}
+
+.russellTextBubble {
+    position: absolute;
+    width: 407px;
+    height: 126px;
+    left: 1066px;
+    top: 967px;
+
+    background: #F2F0F0;
+    border-radius: 16px;
+}
+
+.headerPlayers {
+    position: absolute;
+    width: 448px;
+    height: 256px;
+    left: 105px;
+    top: 105px;
+}
+
+.hofText {
+    position: absolute;
+    width: 820px;
+    height: 113px;
+    left: 544px;
+    top: 207px;
+
+
+    text-align: right;
+
+    color: #E89E10;
+}
+
+.questionText {
+    position: absolute;
+    width: 1317px;
+    height: 48px;
+    left: 62px;
+    top: 396px;
+
+    /*font-family: 'Open Sans';*/
+    font-style: italic;
+    /*font-weight: 600;*/
+    font-size: 35px;
+    line-height: 48px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: 0.02em;
+
+    color: #000000;
+}
+
+.descriptionText {
+    position: absolute;
+    width: 1309px;
+    height: 165px;
+    left: 70px;
+    top: 508px;
+
+    /*font-family: 'Open Sans';*/
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.rankingsTable {
+    position: absolute;
+    width: 1000px;
+    height: 1508px;
+    left: 280px;
+    top: 409px;
+}
+
+.probsText {
+    position: absolute;
+    width: 1353px;
+    height: 61px;
+    left: 46px;
+    top: 633px;
+
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 62px;
+    text-align: center;
+
+    color: #000000;
+}
