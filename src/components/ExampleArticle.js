@@ -8,7 +8,7 @@ const ExampleArticle = () => {
     return (
         <Flex p="10" flexDir="column">
             <Heading className={styles.articleHeader} fontSize="5xl">Blakes' breakout game not enough for Duke men's basketball in stumble at Wake Forest</Heading>
-            <Image className={styles.headerImage} src="../jaylen.svg"/>
+            <Image className={styles.headerImage} src="/statpad.github.io/jaylen.svg"/>
             <Text className={styles.headerImageCaption}>Jaylen Blakes posted a career-high 17 points off the bench in Duke's loss at Wake Forest. </Text>
             <Text className={styles.byLine}>By Jonathan Levitan</Text>
             <Text className={styles.dateLine}>December 21, 2022 at 10:07am CST</Text>
@@ -51,7 +51,7 @@ const ExampleArticle = () => {
                 <br/>
                 <br/>
             </Text>
-            <Image className={styles.secondImage} src="../jaylen.svg"/>
+            <Image className={styles.secondImage} src="/statpad.github.io/jaylen.svg"/>
             <Text className={styles.secondImageCaption}>
                 Test test test
             </Text>

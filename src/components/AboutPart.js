@@ -41,13 +41,13 @@ const AboutPart = (props) => {
                             {props.role}
                         </Text>
                         <a href={props.linkedinLink}>
-                            <img className={styles.linkedinIcon} alt="" src="../linkedin.svg"/>
+                            <img className={styles.linkedinIcon} alt="" src="/statpad.github.io/linkedin.svg"/>
                         </a>
                         <a href={props.githubLink}>
-                            <img className={styles.githubIcon} alt="" src="../github.svg"/>
+                            <img className={styles.githubIcon} alt="" src="/statpad.github.io/github.svg"/>
                         </a>
                         <a href={props.gmailLink}>
-                            <img className={styles.gmailIcon} alt="" src="../gmail.svg"/>
+                            <img className={styles.gmailIcon} alt="" src="/statpad.github.io/gmail.svg"/>
                         </a>
 
                     </HStack>

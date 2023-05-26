@@ -16,7 +16,6 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter basename="/statpad.github.io">
-                <h1> Hi </h1>
                 <div className="pages">
                     <Routes>
                         <Route

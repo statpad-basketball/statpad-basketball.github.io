@@ -4,7 +4,7 @@ import ProjectPart from './ProjectPart'
 import styles from "./LandingPage.module.css";
 import React from "react";
 
-//            <img className={styles.lebronIcon} alt="" src="../lebron.svg"/>
+//            <img className={styles.lebronIcon} alt="" src="/statpad.github.io/lebron.svg"/>
 //
 //AD: https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Anthony_Davis_pre-game_%28cropped%29.jpg/800px-Anthony_Davis_pre-game_%28cropped%29.jpg
 //Kareem trade: https://cdn-wp.thesportsrush.com/2022/08/8fbbbb6d-untitled-design-2022-08-31t111025.511.jpg
@@ -21,20 +21,20 @@ const Projects = () => {
                          desc="Which factors make NBA players the most likely to reach the Basketball Hall of Fame? Is it NBA Championships? All-Star Selections? MVP Awards? Using machine learning, we build a model to predict the probability of every NBA player making the Hall of Fame if they retired today."
                          button1="View Rankings" buttonLink1="/rankings" buttonColor="orange" button2="View Methodology"
                          buttonLink2="/methods" buttonColor2="gray"
-                         img="../lebron.svg"/>
+                         img="/statpad.github.io/lebron.svg"/>
             <Text pb="5" fontSize="2xl" as='i'>See what we've been working on recently:</Text>
             <ProjectPart title="CHAMPIONSHIP PREDICTOR" date="COMING SOON"
                          desc="What team is most poised to win the 2023 NBA Championship? Which teams have the highest playoff probabilities? We project the success of each team in the 2023 season."
                          button1="GitHub Repository" buttonColor="orange"
-                         img="../wiggins.svg"/>
+                         img="/statpad.github.io/wiggins.svg"/>
             <ProjectPart title="ROOKIE SUCCESS MODEL" date="COMING SOON"
                          desc="Can college performance predict the career success of NBA draft picks? Using college statistics, player measurements, and team fit, we predict each rookie’s probability of becoming a rotation player, starter, all-star, or an all-time great by the conclusion of their career."
                          button1="GitHub Repository" buttonColor="yellow"
-                         img="../paolo.svg"/>
+                         img="/statpad.github.io/paolo.svg"/>
             <ProjectPart title="TRADE EVALUATOR" date="COMING SOON"
                          desc="Did the Hawks win the Dejounte Murray trade? What will his stat averages be on his new team? Using artificial intelligence, we quantify the value that newly-traded players will bring to their new teams."
                          button1="GitHub Repository" buttonColor="blue"
-                         img="../dejounte.svg"/>
+                         img="/statpad.github.io/dejounte.svg"/>
         </Flex>
     )
 }
