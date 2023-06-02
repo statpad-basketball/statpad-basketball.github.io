@@ -1,7 +1,7 @@
 {
   "name": "website",
   "version": "0.1.0",
-  "homepage": "https://frankwillard.github.io/statpad.github.io",
+  "homepage": "https://statpad-basketball.github.io",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.3.6",
