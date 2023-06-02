@@ -24,16 +24,16 @@ const About = () => {
             <Heading fontSize="4xl">THE TEAM</Heading>
             <AboutPart title="Miles King," role="Data Scientist, Graphic Designer"
                        desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                       img="/statpad.github.io/miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
+                       img="miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
             <AboutPart title="Frankie Willard," role="Data Scientist, Software Engineer"
                        desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                       img="/statpad.github.io/miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
+                       img="miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
             <AboutPart title="Matthew Lee," role="Software Engineer"
                        desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                       img="/statpad.github.io/miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
+                       img="miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
             <AboutPart title="Brady Kim," role="Software Engineer"
                        desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                       img="/statpad.github.io/miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
+                       img="miles-king.svg" linkedinLink="https://www.linkedin.com/in/milesfking/" githubLink="https://www.linkedin.com/in/milesfking/" gmailLink="https://www.linkedin.com/in/milesfking/"/>
             <Heading fontSize="4xl">GET IN TOUCH</Heading>
             <Heading fontSize="2xl">Contribute a project or article:</Heading>
             <Text pb="5" fontSize="2xl">

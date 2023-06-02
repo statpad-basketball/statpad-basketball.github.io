@@ -12,7 +12,7 @@ const Methodology = () => {
             <Heading fontSize="6xl" className={styles.methodologyText}>METHODOLOGY: </Heading>
             <Heading fontSize="6xl" className={styles.hofCalcText}>HALL OF FAME CALCULATOR</Heading>
             <ByBar></ByBar>
-            <Image className={styles.headerPlayers} src={"/statpad.github.io/methods-header-players.svg"}/>
+            <Image className={styles.headerPlayers} src={"methods-header-players.svg"}/>
 
             <Text pb="5" fontSize="2xl" className={styles.introHeadingText}>Intro heading goes here to introduce project, also a link to the Hall of
                 Fame Calculator page itself </Text>

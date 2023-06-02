@@ -14,7 +14,7 @@ const Rankings = () => {
             <Heading className={styles.hofText} fontSize="5xl">HALL OF FAME CALCULATOR</Heading>
 
             <ByBar></ByBar>
-            <Image className={styles.headerPlayers} src={"/statpad.github.io/rankings-header-players.svg"}/>
+            <Image className={styles.headerPlayers} src={"rankings-header-players.svg"}/>
 
             <Text className={styles.questionText} pb="5" fontSize="2xl" as='i'>In the eyes of voters, what makes an NBA player worthy of induction into
                 the Basketball Hall of Fame?</Text>
@@ -29,8 +29,8 @@ const Rankings = () => {
             <RankingsTextBubble bubbleClass={styles.lebronTextBubble} textmargLeft={"10px"} textmargRight={"0px"} bubbleText={"With a resume including 18 All-Star selections, a record-high 18 All-NBA selections, 4 MVPs, and 4 NBA championships, LeBron comfortably grabs the top spot as the biggest Hall of Fame lock of all time."}></RankingsTextBubble>
             <RankingsTextBubble bubbleClass={styles.russellTextBubble} textmargLeft={"0px"} textmargRight={"10px"} bubbleText={"Boasting a staggering 11 NBA championships, the most in the history of the sport, the late Bill Russell cemented himself as one of basketball’s greatest icons both as a player and a coach."}></RankingsTextBubble>
 
-            <img className={styles.lebronPanel} alt="" src="/statpad.github.io/lebron-rankings-panel.svg"/>
-            <img className={styles.russellPanel} alt="" src="/statpad.github.io/bill-russell-rankings-panel.svg"/>
+            <img className={styles.lebronPanel} alt="" src="lebron-rankings-panel.svg"/>
+            <img className={styles.russellPanel} alt="" src="bill-russell-rankings-panel.svg"/>
 
             <Center className={styles.rankingsTable}>
                 <TableContainer width="50%">

@@ -13,13 +13,13 @@ const Articles = () => {
             <Text pb="5" fontSize="2xl" as='i' marginTop="100px">Explore our latest articles:</Text>
             <ArticlePart title="Underrated teams entering 2023" date="COMING SOON"
                          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                         img="/statpad.github.io/curry.svg"/>
+                         img="curry.svg"/>
             <ArticlePart title="Filler title" date="COMING SOON"
                          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                         img="/statpad.github.io/curry.svg"/>
+                         img="curry.svg"/>
             <ArticlePart title="Filler title" date="COMING SOON"
                          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                         img="/statpad.github.io/curry.svg"/>
+                         img="curry.svg"/>
         </Flex>
     )
 }
