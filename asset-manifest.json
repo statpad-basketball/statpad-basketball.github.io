@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.05b91dd6.css",
-    "main.js": "/static/js/main.27bb6217.js",
+    "main.js": "/static/js/main.021e67b5.js",
     "index.html": "/index.html",
     "static/media/curved-rectangle-page-intros.svg": "/static/media/curved-rectangle-page-intros.f2210ea952543e5a3a79.svg",
     "main.05b91dd6.css.map": "/static/css/main.05b91dd6.css.map",
-    "main.27bb6217.js.map": "/static/js/main.27bb6217.js.map"
+    "main.021e67b5.js.map": "/static/js/main.021e67b5.js.map"
   },
   "entrypoints": [
     "static/css/main.05b91dd6.css",
-    "static/js/main.27bb6217.js"
+    "static/js/main.021e67b5.js"
   ]
 }
