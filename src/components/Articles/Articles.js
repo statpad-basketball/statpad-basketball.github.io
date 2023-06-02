@@ -1,7 +1,7 @@
 import {Flex, Heading, Text} from '@chakra-ui/react'
 
 import ArticlePart from './ArticlePart'
-import styles from "./LandingPage.module.css";
+import styles from "./../LandingPage/LandingPage.module.css";
 import React from "react";
 
 const Articles = () => {

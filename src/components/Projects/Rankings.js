@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {Center, Flex, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
 
-import ByBar from './ByBar'
+import ByBar from '../Articles/ByBar'
 import RankingsTextBubble from './RankingsTextBubble'
 import styles from "./Rankings.module.css";
 

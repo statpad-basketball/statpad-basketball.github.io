@@ -1,15 +1,15 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 //pages & components
-import Navbar from './components/Navbar'
-import LandingPage from './components/LandingPage';
-import Projects from './components/Projects';
-import SubNavbar from './components/SubNavbar';
-import Articles from './components/Articles';
-import About from './components/About';
-import Rankings from './components/Rankings';
-import Methodology from './components/Methodology';
-import ExampleArticle from './components/ExampleArticle';
+import Navbar from './components/Navbar/Navbar'
+import LandingPage from './components/LandingPage/LandingPage';
+import Projects from './components/Projects/Projects';
+import SubNavbar from './components/Navbar/SubNavbar';
+import Articles from './components/Articles/Articles';
+import About from './components/About/About';
+import Rankings from './components/Projects/Rankings';
+import Methodology from './components/Projects/Methodology';
+import ExampleArticle from './components/Articles/ExampleArticle';
 
 function App() {
 
