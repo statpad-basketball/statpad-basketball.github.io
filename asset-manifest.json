@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/statpad.github.io/static/css/main.4d1a5289.css",
-    "main.js": "/statpad.github.io/static/js/main.df3948a4.js",
+    "main.js": "/statpad.github.io/static/js/main.27bb6217.js",
     "index.html": "/statpad.github.io/index.html",
     "static/media/curved-rectangle-page-intros.svg": "/statpad.github.io/static/media/curved-rectangle-page-intros.f2210ea952543e5a3a79.svg",
     "main.4d1a5289.css.map": "/statpad.github.io/static/css/main.4d1a5289.css.map",
-    "main.df3948a4.js.map": "/statpad.github.io/static/js/main.df3948a4.js.map"
+    "main.27bb6217.js.map": "/statpad.github.io/static/js/main.27bb6217.js.map"
   },
   "entrypoints": [
     "static/css/main.4d1a5289.css",
-    "static/js/main.df3948a4.js"
+    "static/js/main.27bb6217.js"
   ]
 }
