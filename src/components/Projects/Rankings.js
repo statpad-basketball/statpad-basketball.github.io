@@ -4,7 +4,7 @@ import {Center, Flex, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th
 import { useEffect, useState } from 'react';
 import { parse } from 'papaparse'; // for parsing CSV data
 
-import ByBar from './ByBar'
+import ByBar from '../Articles/ByBar'
 import RankingsTextBubble from './RankingsTextBubble'
 import styles from "./Rankings.module.css";
 

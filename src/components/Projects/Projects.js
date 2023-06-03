@@ -1,7 +1,7 @@
 import {Flex, Heading, Text} from '@chakra-ui/react'
 
 import ProjectPart from './ProjectPart'
-import styles from "./LandingPage.module.css";
+import styles from "./../LandingPage/LandingPage.module.css";
 import React from "react";
 
 //            <img className={styles.lebronIcon} alt="" src="lebron.svg"/>

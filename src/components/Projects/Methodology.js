@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flex, Heading, HStack, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
 
-import ByBar from './ByBar'
+import ByBar from '../Articles/ByBar'
 import styles from "./Methods.module.css";
 
 //TODO: Add style to text
