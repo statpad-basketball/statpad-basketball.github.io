@@ -13,6 +13,7 @@ import styles from "./Rankings.module.css";
 const Rankings = () => {
 
     const [data, setData] = useState([]);
+    const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -65,7 +66,7 @@ const Rankings = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                        {sortedData.map((row, index) => (
+                        {sortedData.slice(0, showAll ? undefined : 25).map((row, index) => (
                             <Tr
                             key={index}
                             color={index === 0 ? '#E1AA0F' : index === 3 ? 'green' : undefined}
@@ -78,10 +79,14 @@ const Rankings = () => {
                         </Tbody>
                     </Table>
                 </TableContainer>
-            </Center>
-
-        </Flex>
-    )
-}
+                {sortedData.length > 25 && 
+                    <button onClick={() => setShowAll(!showAll)}>
+                    {showAll ? 'Show less' : 'Show more'}
+                    </button>
+                }
+        </Center>
+    </Flex>
+  )
+};
 
 export default Rankings
