@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Center, Flex, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
+import { useEffect, useState } from 'react';
+import { parse } from 'papaparse'; // for parsing CSV data
 
 import ByBar from './ByBar'
 import RankingsTextBubble from './RankingsTextBubble'
@@ -9,6 +11,26 @@ import styles from "./Rankings.module.css";
 //TODO: Add style to text
 
 const Rankings = () => {
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const hof_csv = await fetch('data/HOF-Example.csv');
+        console.log(hof_csv);
+        const csvData = await hof_csv.text();
+        console.log(csvData);
+        const parsedData = parse(csvData, { header: true }).data;
+        setData(parsedData);
+      };
+  
+      fetchData();
+    }, []);
+  
+    const sortedData = data.slice().sort((a, b) => b['HOF Probability'] - a['HOF Probability']);  
+
+    console.log(sortedData)
+
     return (
         <Flex p="10" flexDir="column">
             <Heading className={styles.hofText} fontSize="5xl">HALL OF FAME CALCULATOR</Heading>
@@ -43,76 +65,16 @@ const Rankings = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            <Tr color="#E1AA0F">
-                                <Td>1</Td>
-                                <Td>LeBron James</Td>
-                                <Td isNumeric>1.000</Td>
+                        {sortedData.map((row, index) => (
+                            <Tr
+                            key={index}
+                            color={index === 0 ? '#E1AA0F' : index === 3 ? 'green' : undefined}
+                            >
+                            <Td>{index + 1}</Td>
+                            <Td>{row['Player Name']}</Td>
+                            <Td isNumeric>{row['HOF Probability']}</Td>
                             </Tr>
-                            <Tr>
-                                <Td>2</Td>
-                                <Td>Kareem Abdul-Jabbar</Td>
-                                <Td isNumeric>1.000</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>3</Td>
-                                <Td>Michael Jordan</Td>
-                                <Td isNumeric>1.000</Td>
-                            </Tr>
-                            <Tr color="green">
-                                <Td>4</Td>
-                                <Td>Bill Russell</Td>
-                                <Td isNumeric>1.000</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>5</Td>
-                                <Td>Kobe Bryant</Td>
-                                <Td isNumeric>1.000</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>6</Td>
-                                <Td>Giannis Antetokounmpo</Td>
-                                <Td isNumeric>0.934</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>7</Td>
-                                <Td>Tony Snell</Td>
-                                <Td isNumeric>0.931</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>8</Td>
-                                <Td>Stephen Curry</Td>
-                                <Td isNumeric>0.911</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>9</Td>
-                                <Td>Thanasis Antetokounmpo</Td>
-                                <Td isNumeric>0.832</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>10</Td>
-                                <Td>Grayson Allen</Td>
-                                <Td isNumeric>0.731</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>11</Td>
-                                <Td>Dwight Howard</Td>
-                                <Td isNumeric>0.654</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>12</Td>
-                                <Td>Paolo Banchero</Td>
-                                <Td isNumeric>0.549</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>13</Td>
-                                <Td>Mark Williams</Td>
-                                <Td isNumeric>0.321</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>14</Td>
-                                <Td>Armando Bacot</Td>
-                                <Td isNumeric>0.000</Td>
-                            </Tr>
+                        ))}
                         </Tbody>
                     </Table>
                 </TableContainer>
