@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Button, Center, Flex, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
+import {Button, Center, Flex, HStack, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import { parse } from 'papaparse'; // for parsing CSV data
 
@@ -14,6 +14,8 @@ const Rankings = () => {
 
     const [data, setData] = useState([]);
     const [showAll, setShowAll] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [playersPerPage, setPlayersPerPage] = useState(25);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -29,6 +31,41 @@ const Rankings = () => {
     }, []);
   
     const sortedData = data.slice().sort((a, b) => b['HOF Probability'] - a['HOF Probability']);  
+
+    const handleShowMore = () => {
+        setShowAll((prevShowAll) => !prevShowAll);
+      };
+
+    const getPlayerIndexRange = () => {
+        const indexOfLastPlayer = currentPage * playersPerPage;
+        const indexOfFirstPlayer = indexOfLastPlayer - playersPerPage;
+        return { indexOfFirstPlayer, indexOfLastPlayer };
+    };
+
+      const { indexOfFirstPlayer, indexOfLastPlayer } = getPlayerIndexRange();
+      const displayedData = sortedData.slice(indexOfFirstPlayer, indexOfLastPlayer);
+    
+      const goToFirstPage = () => {
+        setCurrentPage(1);
+      };
+    
+      const goToPreviousPage = () => {
+        if (currentPage > 1) {
+          setCurrentPage((prevPage) => prevPage - 1);
+        }
+      };
+    
+      const goToNextPage = () => {
+        const maxPage = Math.ceil(sortedData.length / playersPerPage);
+        if (currentPage < maxPage) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+      };
+    
+      const goToLastPage = () => {
+        const maxPage = Math.ceil(sortedData.length / playersPerPage);
+        setCurrentPage(maxPage);
+      };
 
     console.log(sortedData)
 
@@ -54,38 +91,42 @@ const Rankings = () => {
 
             <img className={styles.lebronPanel} alt="" src="lebron-rankings-panel.svg"/>
             <img className={styles.russellPanel} alt="" src="bill-russell-rankings-panel.svg"/>
-
             <Center>
                 <TableContainer className={styles.rankingsTable}>
-                    <Table variant='simple'>
-                        <Thead>
-                            <Tr>
-                                <Th>Rank</Th>
-                                <Th>Player Name</Th>
-                                <Th isNumeric>HOF Probability</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                        {sortedData.slice(0, showAll ? undefined : 25).map((row, index) => (
-                            <Tr
-                            key={index}
-                            color={index === 0 ? '#E1AA0F' : index === 3 ? 'green' : undefined}
-                            >
-                            <Td>{index + 1}</Td>
-                            <Td>{row['Player Name']}</Td>
-                            <Td isNumeric>{row['HOF Probability']}</Td>
-                            </Tr>
-                        ))}
-                        </Tbody>
-                    </Table>
+                <Table variant="simple">
+                    <Thead>
+                    <Tr>
+                        <Th>Rank</Th>
+                        <Th>Player Name</Th>
+                        <Th isNumeric>HOF Probability</Th>
+                    </Tr>
+                    </Thead>
+                    <Tbody>
+                    {displayedData.map((row, index) => (
+                        <Tr
+                        key={index}
+                        color={index === 0 ? '#E1AA0F' : index === 3 ? 'green' : undefined}
+                        >
+                        <Td>{indexOfFirstPlayer + index + 1}</Td>
+                        <Td>{row['Player Name']}</Td>
+                        <Td isNumeric>{row['HOF Probability']}</Td>
+                        </Tr>
+                    ))}
+                    </Tbody>
+                </Table>
                 </TableContainer>
-                {sortedData.length > 25 && 
-                    <Button className={styles.showMoreButton} colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={() => setShowAll(!showAll)}>
-                    {showAll ? 'Show less' : 'Show more'}
-                    </Button>
-                }
         </Center>
+
+        {sortedData.length > playersPerPage && (
+                <HStack className={styles.showMoreHStack}>
+                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToFirstPage}>First</Button>
+                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToPreviousPage}>Previous</Button>
+                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToNextPage}>Next</Button>
+                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToLastPage}>Last</Button>
+                </HStack>
+                )}
     </Flex>
+    
   )
 };
 

@@ -98,7 +98,7 @@
     position: relative;
     width: 30%;
     height: 1500px; /* Adjust the height as needed */
-    margin-left: 0px;
+    right: 75px;
     margin-top: 600px; /* Adjust the top margin as needed */
   }
 
@@ -119,14 +119,14 @@
     color: #000000;
 }
 
-.showMoreButton {
+.showMoreHStack {
     position: absolute;
-    top: 880px;
-    width: 200px;
+    top: 2120px;
+    width: 350px;
     height: 50px;
-    left: 50px;
+    left: 655px;
     border-radius: 16px;
-}  
+}
   
   
   
