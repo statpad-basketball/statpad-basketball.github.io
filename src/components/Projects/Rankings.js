@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Center, Flex, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
+import {Button, Center, Flex, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import { parse } from 'papaparse'; // for parsing CSV data
 
@@ -55,8 +55,8 @@ const Rankings = () => {
             <img className={styles.lebronPanel} alt="" src="lebron-rankings-panel.svg"/>
             <img className={styles.russellPanel} alt="" src="bill-russell-rankings-panel.svg"/>
 
-            <Center className={styles.rankingsTable}>
-                <TableContainer width="50%">
+            <Center>
+                <TableContainer className={styles.rankingsTable}>
                     <Table variant='simple'>
                         <Thead>
                             <Tr>
@@ -80,9 +80,9 @@ const Rankings = () => {
                     </Table>
                 </TableContainer>
                 {sortedData.length > 25 && 
-                    <button onClick={() => setShowAll(!showAll)}>
+                    <Button className={styles.showMoreButton} colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={() => setShowAll(!showAll)}>
                     {showAll ? 'Show less' : 'Show more'}
-                    </button>
+                    </Button>
                 }
         </Center>
     </Flex>
