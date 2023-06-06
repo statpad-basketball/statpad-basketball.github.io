@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Button, Center, Flex, HStack, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from '@chakra-ui/react'
+import {Button, Center, Flex, HStack, Heading, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, Stack} from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import { parse } from 'papaparse'; // for parsing CSV data
 
@@ -91,6 +91,7 @@ const Rankings = () => {
 
             <img className={styles.lebronPanel} alt="" src="lebron-rankings-panel.svg"/>
             <img className={styles.russellPanel} alt="" src="bill-russell-rankings-panel.svg"/>
+            
             <Center>
                 <TableContainer className={styles.rankingsTable}>
                 <Table variant="simple">
@@ -113,18 +114,31 @@ const Rankings = () => {
                         </Tr>
                     ))}
                     </Tbody>
+                    <Tbody>
+                    {sortedData.length > playersPerPage && (
+                    <Tr>
+                        <Td colSpan={3}>
+                        <HStack marginLeft="60px" width="90%">
+                            <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToFirstPage}>
+                            First
+                            </Button>
+                            <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToPreviousPage}>
+                            Previous
+                            </Button>
+                            <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToNextPage}>
+                            Next
+                            </Button>
+                            <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToLastPage}>
+                            Last
+                            </Button>
+                        </HStack>
+                        </Td>
+                    </Tr>
+                    )}
+                </Tbody>
                 </Table>
                 </TableContainer>
         </Center>
-
-        {sortedData.length > playersPerPage && (
-                <HStack className={styles.showMoreHStack}>
-                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToFirstPage}>First</Button>
-                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToPreviousPage}>Previous</Button>
-                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToNextPage}>Next</Button>
-                    <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" onClick={goToLastPage}>Last</Button>
-                </HStack>
-                )}
     </Flex>
     
   )
