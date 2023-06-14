@@ -5,7 +5,6 @@ import React from "react";
 const LandingPage = () => {
     return (
         <div className={styles.landingPageDiv}>
-            <img className={styles.graphPaperDots} alt="" src="graph-paper-dots.svg"/>
             <img className={styles.blobIcon} alt="" src="landingpageblob.svg"/>
             <img className={styles.arrows} alt="" src="Arrows.svg"/>
             <b className={styles.quantifyingHoopsB}>
