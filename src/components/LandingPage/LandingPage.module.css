@@ -1,56 +1,26 @@
-.backgroundCircleIcon {
-    position: absolute;
-    top: 265px;
-    left: 866px;
-    width: 414px;
-    height: 414px;
-}
-
-.blobIcon,
 .graphPaperDots {
     position: absolute;
     top: 6px;
-    left: 0;
-    width: 1466px;
-    height: 1064px;
+    left: -1px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/*left: 37.45%*/
 .blobIcon {
-    top: -132px;
-    left: 585px;
-    border-radius: 0px;
-    width: 979px;
-    height: 1000px;
+    position: relative;
+    top: 0px;
+    margin-right: 0px;
+    margin-left: auto;
+    z-index: 1;
 }
 
-.basketballIcon {
+.arrows {
     position: absolute;
-    top: 409px;
-    left: 771.53px;
-    width: 340px;
-    height: 340px;
-}
-
-.ellipseIcon,
-.ellipseIcon1,
-.ellipseIcon2 {
-    position: absolute;
-    top: 268px;
-    left: 1216px;
-    width: 20px;
-    height: 20px;
-}
-
-.ellipseIcon1,
-.ellipseIcon2 {
-    top: 286px;
-    left: 1233px;
-}
-
-.ellipseIcon2 {
-    top: 292px;
-    left: 1209px;
+    width: 1395px;
+    height: 956.42px;
+    left: -50px;
+    top: 80px;
 }
 
 .quantifyingP {
@@ -74,79 +44,7 @@
     text-align: left;
     width: 495px;
     height: 236px;
-}
-
-.arrowIcon,
-.arrowIcon1,
-.arrowIcon2 {
-    position: absolute;
-    top: 805px;
-    left: 189.45px;
-    width: 22.09px;
-    height: 143.5px;
-}
-
-.arrowIcon1,
-.arrowIcon2 {
-    top: 304px;
-    left: 689.45px;
-    height: 106.5px;
-}
-
-.arrowIcon2 {
-    top: 865.14px;
-    left: 638.14px;
-    width: 179.34px;
-    height: 114.86px;
-}
-
-.arrowIcon3,
-.arrowIcon4 {
-    position: absolute;
-    top: 896.45px;
-    left: 1018px;
-    width: 163.5px;
-    height: 22.09px;
-}
-
-.arrowIcon4 {
-    top: 217.67px;
-    left: 58.5px;
-    width: 243.75px;
-    height: 51.51px;
-}
-
-.arrowIcon5,
-.arrowIcon6 {
-    position: absolute;
-    top: 565.65px;
-    left: 418.18px;
-    width: 206.49px;
-    height: 284.22px;
-}
-
-.arrowIcon6 {
-    top: 587.53px;
-    left: 0;
-    width: 60.5px;
-    height: 69.29px;
-}
-
-.arrowIcon7,
-.giannisIcon {
-    position: absolute;
-    top: 75px;
-    left: 875px;
-    width: 309px;
-    height: 330px;
-}
-
-.groupIcon, .rectangleButton {
-    position: absolute;
-    top: 360px;
-    left: 1142px;
-    width: 257px;
-    height: 256.63px;
+    z-index: 1;
 }
 
 .rectangleButton {
@@ -186,6 +84,7 @@
     left: 131px;
     width: 260px;
     height: 64px;
+    z-index: 1;
 }
 
 .span {
@@ -216,12 +115,3 @@
     margin-top: 30px;
     background-image: url("../../../public/curved-rectangle-page-intros.svg");
 }
-
-.lebronIcon{
-    position: absolute;
-    width: 1319px;
-    height: 236px;
-    left: 53px;
-    top: 356px;
-}
-
