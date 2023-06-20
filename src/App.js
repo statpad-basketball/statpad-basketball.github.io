@@ -7,7 +7,7 @@ import Projects from './components/Projects/Projects';
 import SubNavbar from './components/Navbar/SubNavbar';
 import Articles from './components/Articles/Articles';
 import About from './components/About/About';
-import Rankings from './components/Projects/Rankings';
+import Rankings from './components/Projects/Rankings-Updated';
 import Methodology from './components/Projects/Methodology';
 import ExampleArticle from './components/Articles/ExampleArticle';
 
