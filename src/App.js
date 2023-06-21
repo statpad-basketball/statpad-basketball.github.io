@@ -10,6 +10,7 @@ import About from './components/About/About';
 import Rankings from './components/Projects/Rankings-Updated';
 import Methodology from './components/Projects/Methodology';
 import ExampleArticle from './components/Articles/ExampleArticle';
+import Sandbox from './components/Projects/Sandbox';
 
 function App() {
 
@@ -37,6 +38,10 @@ function App() {
                         <Route
                             path="/rankings"
                             element={<><SubNavbar/><Rankings/></>}
+                        />
+                        <Route
+                            path="/sandbox"
+                            element={<><SubNavbar/><Sandbox/></>}
                         />
                         <Route
                             path="/methods"

@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
+const axios = require('axios');
 
 const app = express();
 const port = 2000;
@@ -41,3 +42,22 @@ client.connect()
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
   });
+
+app.post('/predict', async (req, res) => {
+    try {
+      // Prepare the input data
+      const inputValues = req.body;
+  
+      // Make a POST request to the Python web service
+      const response = await axios.post('http://127.0.0.1:5000/predict', inputValues);
+  
+      // Extract the predicted probabilities from the response
+      const { predictedProbabilities } = response.data;
+  
+      // Return the predicted probabilities as the API response
+      res.json({ predictedProbabilities });
+    } catch (error) {
+      console.error('Error predicting:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
