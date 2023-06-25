@@ -32,11 +32,12 @@ const RankingsUpdated = () => {
   const [playersPerPage, setPlayersPerPage] = useState(25);
   const [filters, setFilters] = useState({});
   const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     const fetchAndSortData = async () => {
-      const data = await fetchData();
-      const sortedData = sortData(data);
+      const fetchedData = await fetchData();
+      const sortedData = sortData(fetchedData);
       setData(sortedData);
       setFilteredData(sortedData);
     };
@@ -44,12 +45,32 @@ const RankingsUpdated = () => {
     fetchAndSortData();
   }, []);
   
+  const handleSearchAndFilter = () => {
+    let filteredResult = data;
+  
+    if (Object.keys(filters).length > 0) {
+      // Apply filters
+      filteredResult = filterData(filteredResult, filters);
+    }
+  
+    if (searchText !== '') {
+      // Apply search within the filtered data
+      filteredResult = filteredResult.filter((row) =>
+        row['Player Name'].toLowerCase().startsWith(searchText.toLowerCase())
+      );
+    }
+  
+    setFilteredData(filteredResult);
+  };
+
   const handleFilter = () => {
-    setFilteredData(filterData(data, filters)); // filter the original data instead of sortedData
+    const filteredResult = filterData(data, filters)
+    setFilteredData(filteredResult); // filter the original data instead of sortedData
   };
 
   const handleResetFilters = () => {
     setFilters({});
+    setSearchText(''); // Reset the search input
     setFilteredData(data);
   };
 
@@ -125,7 +146,16 @@ const RankingsUpdated = () => {
       <Image className={styles.russellPanel} alt="" src="bill-russell-rankings-panel.svg" />
 
       <Center>
-        <TableContainer className={styles.rankingsTable}>
+        <Stack className={styles.rankingsTable}>
+        <Input
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyUp={handleSearchAndFilter}
+          width="80%"
+          placeholder="Search by name"
+        />
+        <TableContainer>
           <Table variant="simple">
             <Thead>
               <Tr>
@@ -180,6 +210,7 @@ const RankingsUpdated = () => {
             </Tbody>
           </Table>
         </TableContainer>
+        </Stack>
       </Center>
 
       {columnNames.map((column) => (
@@ -195,7 +226,7 @@ const RankingsUpdated = () => {
         </Stack>
       ))}
 
-      <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" mt={4} onClick={handleFilter}>
+      <Button colorScheme="custom" bg="rgba(232, 158, 16, 0.88)" mt={4} onClick={handleSearchAndFilter}>
         Filter
       </Button>
 
