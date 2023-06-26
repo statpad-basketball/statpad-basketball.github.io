@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { parse } from 'papaparse';
 
+import ToolSelector from './ToolSelector';
 import ByBar from '../Articles/ByBar';
 import RankingsTextBubble from './RankingsTextBubble';
 import styles from './Rankings.module.css';
@@ -114,6 +115,8 @@ const Rankings = () => {
           here.
         </Link>
       </Text>
+
+      <ToolSelector/>
 
       <Heading className={styles.probsText}>Hall of Fame probabilities: Current and former players</Heading>
 
