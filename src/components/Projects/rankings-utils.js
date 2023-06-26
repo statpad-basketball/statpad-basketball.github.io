@@ -12,8 +12,8 @@ export const fetchData = async () => {
 };
 
 // sort the data
-export const sortData = (data) => {
-  return data.slice().sort((a, b) => b['HOF Probability'] - a['HOF Probability']);
+export const sortData = (data, colToSortBy) => {
+  return data.slice().sort((a, b) => b[colToSortBy] - a[colToSortBy]);
 };
 
 // filter the data based on a set of filters

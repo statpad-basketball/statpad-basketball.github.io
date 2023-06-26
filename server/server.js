@@ -21,7 +21,7 @@ client.connect()
       try {
         // Get reference to the database and collection
         const db = client.db('statpad_db');
-        const collection = db.collection('hof_rankings_example_csv');
+        const collection = db.collection('hof_probs_v1_clean');
 
         // Fetch the data from MongoDB
         const data = await collection.find({}).toArray();

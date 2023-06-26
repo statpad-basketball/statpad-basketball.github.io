@@ -24,7 +24,8 @@ import ByBar from '../Articles/ByBar';
 import RankingsTextBubble from './RankingsTextBubble';
 import styles from './Rankings.module.css';
 
-const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
+//const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
+const columnNames = ['MVP', 'All_Star', 'FG_totals', 'TRB_totals', 'BLK_totals', 'pts_per_g_seasonal', 'ws_seasonal', 'PER_advanced', 'OWS_advanced', 'DWS_advanced', 'Champ'];
 
 const RankingsUpdated = () => {
   const [data, setData] = useState([]);
@@ -37,7 +38,7 @@ const RankingsUpdated = () => {
   useEffect(() => {
     const fetchAndSortData = async () => {
       const fetchedData = await fetchData();
-      const sortedData = sortData(fetchedData);
+      const sortedData = sortData(fetchedData, 'pred');
       setData(sortedData);
       setFilteredData(sortedData);
     };
@@ -56,7 +57,7 @@ const RankingsUpdated = () => {
     if (searchText !== '') {
       // Apply search within the filtered data
       filteredResult = filteredResult.filter((row) =>
-        row['Player Name'].toLowerCase().startsWith(searchText.toLowerCase())
+        row['Player'].toLowerCase().startsWith(searchText.toLowerCase())
       );
     }
   
@@ -175,8 +176,8 @@ const RankingsUpdated = () => {
             return (
                 <Tr key={index} color={index === 0 ? '#E1AA0F' : index === 3 ? 'green' : undefined}>
                 <Td>{rank}</Td>
-                <Td>{row['Player Name']}</Td>
-                <Td isNumeric>{row['HOF Probability']}</Td>
+                <Td>{row['Player']}</Td>
+                <Td isNumeric>{Math.round(row['pred'] * 100) / 100}</Td>
                 {columnNames.map((column) => (
                     <Td key={column} isNumeric>
                     {row[column]}

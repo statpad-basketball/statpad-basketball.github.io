@@ -32,7 +32,8 @@ import { fetchData, sortData, filterData, paginateData } from './rankings-utils.
 import ByBar from '../Articles/ByBar';
 import styles from './Rankings.module.css';
 
-const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
+// const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
+const columnNames = ['MVP', 'All_Star', 'FG_totals', 'TRB_totals', 'BLK_totals', 'pts_per_g_seasonal', 'ws_seasonal', 'PER_advanced', 'OWS_advanced', 'DWS_advanced', 'Champ', 'pred'];
 
 const Comparison = () => {
     const [data, setData] = useState([]);
@@ -40,12 +41,11 @@ const Comparison = () => {
     const [nameSuggestions2, setNameSuggestions2] = useState([]);
     const [selectedPlayerData1, setSelectedPlayerData1] = useState({});
     const [selectedPlayerData2, setSelectedPlayerData2] = useState({});
-    const [forceRender, setForceRender] = useState(false);
   
     useEffect(() => {
     const fetchAndSortData = async () => {
       const fetchedData = await fetchData();
-      const sortedData = sortData(fetchedData);
+      const sortedData = sortData(fetchedData, 'pred');
       setData(sortedData);
     };
   
@@ -57,8 +57,8 @@ const Comparison = () => {
     const inputText = e.target.value;
 
     const suggestedNames = data
-      .filter((row) => row['Player Name'].toLowerCase().startsWith(inputText.toLowerCase()))
-      .map((row) => row['Player Name']);
+      .filter((row) => row['Player'].toLowerCase().startsWith(inputText.toLowerCase()))
+      .map((row) => row['Player']);
 
     setNameSuggestions1(suggestedNames);
   };
@@ -67,19 +67,19 @@ const Comparison = () => {
     const inputText = e.target.value;
 
     const suggestedNames = data
-      .filter((row) => row['Player Name'].toLowerCase().startsWith(inputText.toLowerCase()))
-      .map((row) => row['Player Name']);
+      .filter((row) => row['Player'].toLowerCase().startsWith(inputText.toLowerCase()))
+      .map((row) => row['Player']);
 
     setNameSuggestions2(suggestedNames);
   };
 
   const handleNameSelection1 = (selectedName) => {
-    const playerData = data.find((row) => row['Player Name'] === selectedName);
+    const playerData = data.find((row) => row['Player'] === selectedName);
     setSelectedPlayerData1(playerData);
   };
 
   const handleNameSelection2 = (selectedName) => {
-    const playerData = data.find((row) => row['Player Name'] === selectedName);
+    const playerData = data.find((row) => row['Player'] === selectedName);
     setSelectedPlayerData2(playerData);
   };
 
