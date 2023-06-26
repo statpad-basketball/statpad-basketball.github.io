@@ -52,24 +52,17 @@ const About = () => {
         gmailLink="https://www.linkedin.com/in/milesfking/"
       />
       <AboutPart
-        title="Matthew Lee,"
-        role="Software Engineer"
+        title="Aditya Sardesai"
+        role="Data Scientist, Software Engineer"
         desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         img="miles-king.svg"
         linkedinLink="https://www.linkedin.com/in/milesfking/"
         githubLink="https://www.linkedin.com/in/milesfking/"
         gmailLink="https://www.linkedin.com/in/milesfking/"
       />
-      <AboutPart
-        title="Brady Kim,"
-        role="Software Engineer"
-        desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-        img="miles-king.svg"
-        linkedinLink="https://www.linkedin.com/in/milesfking/"
-        githubLink="https://www.linkedin.com/in/milesfking/"
-        gmailLink="https://www.linkedin.com/in/milesfking/"
-      />
-      <Heading fontSize="4xl">GET IN TOUCH</Heading>
+      <Heading fontSize="4xl" mt={10}>
+        GET IN TOUCH
+      </Heading>
       <Heading fontSize="2xl">Contribute a project or article:</Heading>
       <Text pb="5" fontSize="2xl">
         Have an idea for a data-driven article or project? Let us know your

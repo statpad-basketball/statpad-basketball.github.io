@@ -10,26 +10,12 @@
     margin-top: 30px;
 }
 
-.githubIcon {
-    position: absolute;
-    width: 37px;
-    height: 37px;
-    left: 1318px;
+.icons {
+    left: ;
     margin-top: -15px;
 }
 
-.gmailIcon {
-    position: absolute;
-    width: 37px;
-    height: 37px;
-    left: 1363px;
-    margin-top: -15px;
-}
-
-.linkedinIcon {
-    position: absolute;
-    width: 37px;
-    height: 37px;
-    left: 1273px;
-    margin-top: -15px;
-}
+.icon {
+    width: 27px;
+    height: 27px;
+  }

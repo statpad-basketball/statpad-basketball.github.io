@@ -8,7 +8,7 @@ import ComparisonTool from "./ComparisonTool";
 
 const ToolSelector = () => {
   return (
-    <Tabs defaultIndex={0}>
+    <Tabs defaultIndex={0} display="flex" justifyContent="center">
       <TabList
         borderWidth="1px"
         borderRadius="30"
@@ -19,7 +19,6 @@ const ToolSelector = () => {
         justifyContent="center"
         alignItems="center"
         position="absolute"
-        left="248px"
         top="648px"
       >
         <Tab fontWeight="bold" _selected={{ borderBottom: "4px solid orange" }}>

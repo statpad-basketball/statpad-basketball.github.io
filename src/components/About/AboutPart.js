@@ -4,8 +4,10 @@ import {
   Flex,
   Heading,
   HStack,
+  Link,
   Image,
   Stack,
+  Spacer,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -18,7 +20,7 @@ const AboutPart = (props) => {
       <Stack
         borderWidth="1px"
         borderRadius="30"
-        w="100%"
+        w="70%"
         height="15rem"
         direction="row"
         bg="#E7E7E7"
@@ -53,21 +55,23 @@ const AboutPart = (props) => {
             >
               {props.role}
             </Text>
-            <a href={props.linkedinLink}>
-              <img className={styles.linkedinIcon} alt="" src="linkedin.svg" />
-            </a>
-            <a href={props.githubLink}>
-              <img className={styles.githubIcon} alt="" src="github.svg" />
-            </a>
-            <a href={props.gmailLink}>
-              <img className={styles.gmailIcon} alt="" src="gmail.svg" />
-            </a>
           </HStack>
 
           <Text color={useColorModeValue("gray.700", "gray.400")}>
             {props.desc}
           </Text>
         </Stack>
+        <HStack spacing={4} position="relative" bottom="30%" right="5%">
+          <Link href={props.linkedinLink}>
+            <Image className={styles.icon} alt="" src="linkedin.svg" />
+          </Link>
+          <Link href={props.githubLink}>
+            <Image className={styles.icon} alt="" src="github.svg" />
+          </Link>
+          <Link href={props.gmailLink}>
+            <Image className={styles.icon} alt="" src="gmail.svg" />
+          </Link>
+        </HStack>
       </Stack>
     </Center>
   );
