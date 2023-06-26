@@ -6,6 +6,8 @@ import {
   Flex,
   Heading,
   Image,
+  FormControl,
+  FormLabel,
   Table,
   TableContainer,
   Tbody,
@@ -18,6 +20,12 @@ import {
   Stack,
   Input,
 } from '@chakra-ui/react';
+import {
+    AutoComplete,
+    AutoCompleteInput,
+    AutoCompleteItem,
+    AutoCompleteList,
+  } from "@choc-ui/chakra-autocomplete";
 // import { parse } from 'papaparse';
 import { fetchData, sortData, filterData, paginateData } from './rankings-utils.js'; // import from your utility file
 
@@ -28,12 +36,11 @@ const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER',
 
 const Comparison = () => {
     const [data, setData] = useState([]);
-    const [searchText1, setSearchText1] = useState('');
-    const [searchText2, setSearchText2] = useState('');
     const [nameSuggestions1, setNameSuggestions1] = useState([]);
     const [nameSuggestions2, setNameSuggestions2] = useState([]);
-    const [selectedName1, setSelectedName1] = useState('');
-    const [selectedName2, setSelectedName2] = useState('');
+    const [selectedPlayerData1, setSelectedPlayerData1] = useState({});
+    const [selectedPlayerData2, setSelectedPlayerData2] = useState({});
+    const [forceRender, setForceRender] = useState(false);
   
     useEffect(() => {
     const fetchAndSortData = async () => {
@@ -48,7 +55,6 @@ const Comparison = () => {
 
   const handleSearchInputChange1 = (e) => {
     const inputText = e.target.value;
-    setSearchText1(inputText);
 
     const suggestedNames = data
       .filter((row) => row['Player Name'].toLowerCase().startsWith(inputText.toLowerCase()))
@@ -59,7 +65,6 @@ const Comparison = () => {
 
   const handleSearchInputChange2 = (e) => {
     const inputText = e.target.value;
-    setSearchText2(inputText);
 
     const suggestedNames = data
       .filter((row) => row['Player Name'].toLowerCase().startsWith(inputText.toLowerCase()))
@@ -69,11 +74,13 @@ const Comparison = () => {
   };
 
   const handleNameSelection1 = (selectedName) => {
-    setSelectedName1(selectedName);
+    const playerData = data.find((row) => row['Player Name'] === selectedName);
+    setSelectedPlayerData1(playerData);
   };
 
   const handleNameSelection2 = (selectedName) => {
-    setSelectedName2(selectedName);
+    const playerData = data.find((row) => row['Player Name'] === selectedName);
+    setSelectedPlayerData2(playerData);
   };
 
   return (
@@ -101,34 +108,76 @@ const Comparison = () => {
 
       
       <Center mt={600} width={"80%"}>
-      <Input
-            type="text"
-            value={searchText1}
-            onChange={handleSearchInputChange1}
-            width="30%"
-            placeholder="Search by name"
-            list="nameSuggestions1"
-          />
-          <datalist id="nameSuggestions1">
-            {nameSuggestions1.map((name, index) => (
-              <option key={index} value={name} />
-            ))}
-          </datalist>
-          <Input
-            type="text"
-            value={searchText2}
-            onChange={handleSearchInputChange2}
-            width="30%"
-            placeholder="Search by name"
-            list="nameSuggestions2"
-          />
-          <datalist id="nameSuggestions2">
-            {nameSuggestions2.map((name, index) => (
-              <option key={index} value={name} />
-            ))}
-          </datalist>
+        <FormControl w="60">
+        <FormLabel>Player 1</FormLabel>
+            <AutoComplete openOnFocus>
+                <AutoCompleteInput 
+                    variant="filled"
+                    onChange={handleSearchInputChange1}
+                    placeholder="Search by name"
+                    list="nameSuggestions1"
+                />
+                <AutoCompleteList>
+                    {nameSuggestions1.map((name, index) => (
+                    <AutoCompleteItem
+                        key={index}
+                        value={name}
+                        textTransform="capitalize"
+                        onMouseDown={() => handleNameSelection1(name)}
+                        onTouchStart={() => handleNameSelection1(name)}
+                    >
+                        {name}
+                    </AutoCompleteItem>
+                    ))}
+            </AutoCompleteList>
+            </AutoComplete>
+        </FormControl>
+        <FormControl w="60" ml={"1rem"}>
+        <FormLabel>Player 2</FormLabel>
+            <AutoComplete openOnFocus>
+                <AutoCompleteInput 
+                    variant="filled"
+                    onChange={handleSearchInputChange2}
+                    placeholder="Search by name"
+                    list="nameSuggestions2"
+                />
+                <AutoCompleteList>
+                    {nameSuggestions2.map((name, index) => (
+                    <AutoCompleteItem
+                        key={index}
+                        value={name}
+                        textTransform="capitalize"
+                        onMouseDown={() => handleNameSelection2(name)}
+                        onTouchStart={() => handleNameSelection2(name)}          
+                    >
+                        {name}
+                    </AutoCompleteItem>
+                    ))}
+            </AutoCompleteList>
+            </AutoComplete>
+        </FormControl>
       </Center>
 
+      <TableContainer>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th></Th>
+            <Th>Player 1</Th>
+            <Th>Player 2</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {columnNames.map((columnName) => (
+            <Tr key={columnName}>
+              <Td>{columnName}</Td>
+              <Td>{selectedPlayerData1[columnName]}</Td>
+              <Td>{selectedPlayerData2[columnName]}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
     </Flex>
   );
 };
