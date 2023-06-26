@@ -25,6 +25,22 @@ import axios from 'axios';
 
 const columnNames = [ 'MVP',  'All_Star',  'FG%_totals',  'TRB_totals',  'BLK_totals',  'pts_per_g_seasonal',  'ws_seasonal',  'PER_advanced',  'OWS_advanced',  'DWS_advanced',  'Champ']
 
+const integerColumns = ['MVP', 'All_Star', 'TRB_totals', 'BLK_totals', 'pts_per_g_seasonal', 'ws_seasonal', 'Champ'];
+
+const columnRanges = {
+  'MVP': { minValue: 0, maxValue: 6 }, // Range: 0 to 1
+  'All_Star': { minValue: 0, maxValue: 18 }, // Range: 0 to 10
+  'FG%_totals': { minValue: 0.2, maxValue: 0.6 }, // Range: 0.4 to 0.6
+  'TRB_totals': { minValue: 0, maxValue: 12000 }, // Range: 0 to 10,000
+  'BLK_totals': { minValue: 0, maxValue: 5000 }, // Range: 0 to 5,000
+  'pts_per_g_seasonal': { minValue: 0, maxValue: 100 }, // Range: 0 to 40
+  'ws_seasonal': { minValue: 0, maxValue: 100 }, // Range: 0 to 20
+  'PER_advanced': { minValue: 0, maxValue: 30 }, // Range: 0 to 30
+  'OWS_advanced': { minValue: 0, maxValue: 100 }, // Range: 0 to 10
+  'DWS_advanced': { minValue: 0, maxValue: 100 }, // Range: 0 to 10
+  'Champ': { minValue: 0, maxValue: 6 }, // Range: 0 to 1
+};
+
 const Sandbox = () => {
   const [data, setData] = useState([]);
   const [predictedProbability, setPredictedProbability] = useState(null); // Add state for predicted probability
@@ -33,9 +49,13 @@ const Sandbox = () => {
     const randomValues = {};
 
     columnNames.forEach((column) => {
-      const minValue = 0; // Minimum value for random stats
-      const maxValue = 5; // Maximum value for random stats
-      const randomValue = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+      const { minValue, maxValue } = columnRanges[column];
+      let randomValue = Math.random() * (maxValue - minValue) + minValue;
+
+      // Round the random value to the nearest integer for specific columns
+      if (integerColumns.includes(column)) {
+        randomValue = Math.round(randomValue);
+      }
 
       randomValues[column] = randomValue;
     });
