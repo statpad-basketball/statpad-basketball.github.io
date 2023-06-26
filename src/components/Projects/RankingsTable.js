@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Button,
+  ButtonGroup,
   Center,
   Flex,
-  Heading,
+  HStack,
   Image,
   Table,
   TableContainer,
@@ -34,7 +34,9 @@ const RankingsTable = () => {
     const [filters, setFilters] = useState({});
     const [filteredData, setFilteredData] = useState([]);
     const [searchText, setSearchText] = useState('');
-  
+    const [showAllStats, setShowAllStats] = useState(false);
+    const [activeButton, setActiveButton] = useState('all');
+
     useEffect(() => {
       const fetchAndSortData = async () => {
         const fetchedData = await fetchData();
@@ -103,6 +105,25 @@ const RankingsTable = () => {
       setFilters((prevFilters) => ({ ...prevFilters, [column]: value }));
     };
 
+    const toggleShowAllStats = () => {
+        setShowAllStats((prevState) => !prevState);
+      };
+
+    const handleButtonClick = (button) => {
+        setActiveButton(button);
+    
+        let filteredResult = data;
+    
+        if (button === 'active') {
+          filteredResult = filteredResult.filter((row) => row['Eligible'] === 0);
+        } else if (button === 'historic') {
+          filteredResult = filteredResult.filter((row) => row['Eligible'] === 1);
+        }
+    
+        setFilteredData(filteredResult);
+        setCurrentPage(1); // Reset pagination to first page
+    };
+
     return (
         <Flex p="10" flexDir="column">
         <RankingsTextBubble
@@ -127,14 +148,60 @@ const RankingsTable = () => {
 
       <Center>
         <Stack className={styles.rankingsTable}>
-        <Input
-          type="text"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          onKeyUp={handleSearchAndFilter}
-          width="80%"
-          placeholder="Search by name"
-        />
+        <ButtonGroup spacing={0} isAttached={true}>
+        <Button
+            colorScheme="custom"
+            bg={activeButton === 'all' ? 'rgba(249, 250, 251, 1)' : 'white'}
+            onClick={() => handleButtonClick('all')}
+            flex="1"
+            color="rgba(52, 64, 84, 1)"
+            border="1px solid rgba(208, 213, 221, 1)"
+            >
+            All Players
+            </Button>
+            <Button
+            colorScheme="custom"
+            bg={activeButton === 'active' ? 'rgba(249, 250, 251, 1)' : 'white'}
+            onClick={() => handleButtonClick('active')}
+            flex="1"
+            borderColor="rgba(208, 213, 221, 1)"
+            color="rgba(52, 64, 84, 1)"
+            borderTop="1px solid rgba(208, 213, 221, 1)"
+            borderBottom="1px solid rgba(208, 213, 221, 1)"
+            >
+            Active Players
+            </Button>
+            <Button
+            colorScheme="custom"
+            bg={activeButton === 'historic' ? 'rgba(249, 250, 251, 1)' : 'white'}
+            onClick={() => handleButtonClick('historic')}
+            flex="1"
+            color="rgba(52, 64, 84, 1)"
+            border="1px solid rgba(208, 213, 221, 1)"
+            >
+            Historic Players
+            </Button>
+        </ButtonGroup>
+        <HStack>
+            <Input
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyUp={handleSearchAndFilter}
+            width="80%"
+            placeholder="Search by name"
+            />
+            <Button
+                colorScheme="custom"
+                bg="rgba(232, 158, 16, 0.88)"
+                mt={4}
+                width="40%"
+                fontSize="1xl"
+                onClick={toggleShowAllStats}
+            >
+                {showAllStats ? "Hide Player Stats" : "See Player Stats"}
+            </Button>
+        </HStack>
         <TableContainer>
           <Table variant="simple">
             <Thead>
@@ -142,11 +209,8 @@ const RankingsTable = () => {
                 <Th>Rank</Th>
                 <Th>Player Name</Th>
                 <Th isNumeric>HOF Probability</Th>
-                {columnNames.map((column) => (
-                  <Th key={column} isNumeric>
-                    {column}
-                  </Th>
-                ))}
+                {showAllStats &&
+                columnNames.map((column) => <Th key={column}>{column}</Th>)}
               </Tr>
             </Thead>
             <Tbody>
@@ -157,11 +221,8 @@ const RankingsTable = () => {
                 <Td>{rank}</Td>
                 <Td>{row['Player']}</Td>
                 <Td isNumeric>{Math.round(row['pred'] * 100) / 100}</Td>
-                {columnNames.map((column) => (
-                    <Td key={column} isNumeric>
-                    {row[column]}
-                    </Td>
-                ))}
+                {showAllStats &&
+                    columnNames.map((column) => <Td key={column}>{row[column]}</Td>)}
                 </Tr>
             );
             })}

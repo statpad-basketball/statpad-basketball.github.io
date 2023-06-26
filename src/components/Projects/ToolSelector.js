@@ -19,8 +19,8 @@ const ToolSelector = () => {
     justifyContent="center"
     alignItems="center"
     position="absolute"
-    left="48px"
-    top="498px"
+    left="248px"
+    top="648px"
   >
     <Tab
       fontWeight="bold"
