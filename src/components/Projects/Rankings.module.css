@@ -2,7 +2,8 @@
     position: absolute;
     width: 225px;
     height: 284px;
-    left: 110px;
+    left: 4%;
+    margin-left: 50px;
     top: 724px;
 }
 
@@ -16,18 +17,26 @@
 
 .lebronTextBubble {
     position: absolute;
-    width: 391px;
-    height: 112px;
-    left: -10px;
+    width: 300px;
     top: 1008px;
+    left: 4%;
 
     background: #F2F0F0;
     border-radius: 16px;
 }
 
+
+@media (max-width: 1390px) {
+    .lebronTextBubble {
+      left: 0%;
+    }
+    .lebronPanel {
+        left: 0%;
+      }
+}
+
 .russellTextBubble {
     position: absolute;
-    width: 407px;
     height: 126px;
     left: 69%;
     top: 967px;
