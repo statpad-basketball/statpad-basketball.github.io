@@ -15,6 +15,12 @@
     height: 1064px;
 }
 
+@media (max-width: 566px) {
+    .graphPaperDots {
+      height: 1064px;
+    }
+  }
+
 /*left: 37.45%*/
 .blobIcon {
     top: -132px;
@@ -180,12 +186,11 @@
     cursor: pointer;
     border: 0;
     padding: 0;
-    background-color: transparent;
     position: absolute;
     top: 516px;
     left: 131px;
     width: 260px;
-    height: 64px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25) inset;
 }
 
 .span {

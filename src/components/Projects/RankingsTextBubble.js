@@ -8,7 +8,7 @@ const RankingsTextBubble = (props) => {
     <Stack
       borderWidth="1px"
       borderRadius="30"
-      w="30%"
+      w="400px"
       direction="row"
       bg="#F2F0F0"
       pr={4}
@@ -19,6 +19,7 @@ const RankingsTextBubble = (props) => {
     >
       <Text
         pb="5"
+        pt="2"
         fontSize="1xl"
         marginLeft={props.textmargLeft}
         marginRight={props.textmargRight}

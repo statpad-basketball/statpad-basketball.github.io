@@ -44,6 +44,9 @@ const columnNames = [
   "DWS_advanced",
   "Champ",
 ];
+
+const tooSmallForBubblesWidth = 1250; // Adjust the value as per your requirements
+
 const RankingsTable = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,6 +56,7 @@ const RankingsTable = () => {
   const [searchText, setSearchText] = useState("");
   const [showAllStats, setShowAllStats] = useState(false);
   const [activeButton, setActiveButton] = useState("all");
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const fetchAndSortData = async () => {
@@ -63,6 +67,19 @@ const RankingsTable = () => {
     };
 
     fetchAndSortData();
+  }, []);
+
+  // Add an event listener to update the screen width when it changes
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleSearchAndFilter = () => {
@@ -147,7 +164,7 @@ const RankingsTable = () => {
 
   return (
     <Flex p="10" flexDir="column">
-      {!showAllStats && (
+      {!showAllStats && screenWidth >= tooSmallForBubblesWidth && (
         <>
           <RankingsTextBubble
             bubbleClass={styles.lebronTextBubble}
@@ -278,15 +295,20 @@ const RankingsTable = () => {
                   );
                 })}
               </Tbody>
+            </Table>
+          </TableContainer>
+          <TableContainer>
+            <Table>
               <Tbody>
                 {filteredData.length > playersPerPage && (
                   <Tr>
-                    <Td colSpan={3}>
+                    <Td colSpan={columnNames.length + 3}>
                       <Stack
                         direction="row"
                         spacing={2}
-                        marginLeft="60px"
                         width="90%"
+                        justifyContent="center"
+                        style={{ margin: "auto" }}
                       >
                         <Button
                           colorScheme="custom"

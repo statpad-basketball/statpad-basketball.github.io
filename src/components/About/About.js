@@ -39,7 +39,7 @@ const About = () => {
         desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         img="miles-king.svg"
         linkedinLink="https://www.linkedin.com/in/milesfking/"
-        githubLink="https://www.linkedin.com/in/milesfking/"
+        githubLink="https://github.com/milesfking"
         gmailLink="https://www.linkedin.com/in/milesfking/"
       />
       <AboutPart
@@ -52,12 +52,12 @@ const About = () => {
         gmailLink="https://www.linkedin.com/in/milesfking/"
       />
       <AboutPart
-        title="Aditya Sardesai"
+        title="Aditya Sardesai,"
         role="Data Scientist, Software Engineer"
         desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         img="miles-king.svg"
-        linkedinLink="https://www.linkedin.com/in/milesfking/"
-        githubLink="https://www.linkedin.com/in/milesfking/"
+        linkedinLink="https://www.linkedin.com/in/aditsard/"
+        githubLink="https://github.com/aditsard3"
         gmailLink="https://www.linkedin.com/in/milesfking/"
       />
       <Heading fontSize="4xl" mt={10}>
