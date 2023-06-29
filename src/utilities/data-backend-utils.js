@@ -25,3 +25,48 @@ export const filterData = (data, filters) => {
     )
   );
 };
+
+export const handleSearchAndFilter = (
+  data,
+  filters,
+  searchText,
+  setFilteredData
+) => {
+  let filteredResult = data;
+
+  if (Object.keys(filters).length > 0) {
+    // Apply filters
+    filteredResult = filterData(filteredResult, filters);
+  }
+
+  if (searchText !== "") {
+    // Apply search within the filtered data
+    filteredResult = filteredResult.filter((row) =>
+      row["Player"].toLowerCase().startsWith(searchText.toLowerCase())
+    );
+  }
+
+  setFilteredData(filteredResult);
+};
+
+export const handleFilter = (data, filters, setFilteredData) => {
+  const filteredResult = filterData(data, filters);
+  setFilteredData(filteredResult);
+};
+
+export const handleResetFilters = (
+  data,
+  setFilters,
+  setFilteredData,
+  setSearchText
+) => {
+  setFilters({});
+  if (setSearchText) {
+    setSearchText(""); // Reset the search input if setSearchText is defined
+  }
+  setFilteredData(data);
+};
+
+export const handleFilterChange = (column, value, setFilters) => {
+  setFilters((prevFilters) => ({ ...prevFilters, [column]: value }));
+};

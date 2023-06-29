@@ -21,12 +21,15 @@ import {
 import {
   fetchData,
   sortData,
-  filterData,
+  handleSearchAndFilter,
+  handleResetFilters,
+  handleFilterChange,
 } from "../../utilities/data-backend-utils.js"; // import from your utility file
 
 import {
   paginateData,
   getPageRange,
+  handleToggleEligibilityButtonClick,
 } from "../../utilities/table-frontend-utils.js";
 
 import RankingsTextBubble from "./RankingsTextBubble";
@@ -84,35 +87,6 @@ const RankingsTable = () => {
     };
   }, []);
 
-  const handleSearchAndFilter = () => {
-    let filteredResult = data;
-
-    if (Object.keys(filters).length > 0) {
-      // Apply filters
-      filteredResult = filterData(filteredResult, filters);
-    }
-
-    if (searchText !== "") {
-      // Apply search within the filtered data
-      filteredResult = filteredResult.filter((row) =>
-        row["Player"].toLowerCase().startsWith(searchText.toLowerCase())
-      );
-    }
-
-    setFilteredData(filteredResult);
-  };
-
-  const handleFilter = () => {
-    const filteredResult = filterData(data, filters);
-    setFilteredData(filteredResult); // filter the original data instead of sortedData
-  };
-
-  const handleResetFilters = () => {
-    setFilters({});
-    setSearchText(""); // Reset the search input
-    setFilteredData(data);
-  };
-
   const { paginatedData: displayedData, maxPage } = paginateData(
     filteredData,
     currentPage,
@@ -141,27 +115,31 @@ const RankingsTable = () => {
     setCurrentPage(maxPage);
   };
 
-  const handleFilterChange = (column, value) => {
-    setFilters((prevFilters) => ({ ...prevFilters, [column]: value }));
-  };
-
   const toggleShowAllStats = () => {
     setShowAllStats((prevState) => !prevState);
   };
 
-  const handleButtonClick = (button) => {
-    setActiveButton(button);
+  // Wrapper functions to pass the correct data to utility functions
+  const handleSearchAndFilterWrapper = () => {
+    handleSearchAndFilter(data, filters, searchText, setFilteredData);
+  };
 
-    let filteredResult = data;
+  const handleFilterChangeWrapper = (column, value) => {
+    handleFilterChange(column, value, setFilters);
+  };
 
-    if (button === "active") {
-      filteredResult = filteredResult.filter((row) => row["Eligible"] === 0);
-    } else if (button === "historic") {
-      filteredResult = filteredResult.filter((row) => row["Eligible"] === 1);
-    }
+  const handleResetFiltersWrapper = () => {
+    handleResetFilters(data, setFilters, setFilteredData, setSearchText);
+  };
 
-    setFilteredData(filteredResult);
-    setCurrentPage(1); // Reset pagination to first page
+  const handleToggleEligibilityButtonClickWrapper = (button) => {
+    handleToggleEligibilityButtonClick(
+      button,
+      data,
+      filteredData,
+      setFilteredData,
+      setCurrentPage
+    );
   };
 
   // Find if LeBron James or Bill Russell are present in the displayedData
@@ -223,7 +201,7 @@ const RankingsTable = () => {
             <Button
               colorScheme="custom"
               bg={activeButton === "all" ? "rgba(249, 250, 251, 1)" : "white"}
-              onClick={() => handleButtonClick("all")}
+              onClick={() => handleToggleEligibilityButtonClickWrapper("all")}
               flex="1"
               color="rgba(52, 64, 84, 1)"
               border="1px solid rgba(208, 213, 221, 1)"
@@ -235,7 +213,9 @@ const RankingsTable = () => {
               bg={
                 activeButton === "active" ? "rgba(249, 250, 251, 1)" : "white"
               }
-              onClick={() => handleButtonClick("active")}
+              onClick={() =>
+                handleToggleEligibilityButtonClickWrapper("active")
+              }
               flex="1"
               borderColor="rgba(208, 213, 221, 1)"
               color="rgba(52, 64, 84, 1)"
@@ -249,7 +229,9 @@ const RankingsTable = () => {
               bg={
                 activeButton === "historic" ? "rgba(249, 250, 251, 1)" : "white"
               }
-              onClick={() => handleButtonClick("historic")}
+              onClick={() =>
+                handleToggleEligibilityButtonClickWrapper("historic")
+              }
               flex="1"
               color="rgba(52, 64, 84, 1)"
               border="1px solid rgba(208, 213, 221, 1)"
@@ -262,7 +244,7 @@ const RankingsTable = () => {
               type="text"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              onKeyUp={handleSearchAndFilter}
+              onKeyUp={handleSearchAndFilterWrapper}
               width="80%"
               placeholder="Search by name"
             />
@@ -376,7 +358,7 @@ const RankingsTable = () => {
             type="number"
             value={filters[column] !== undefined ? filters[column] : ""}
             onChange={(e) =>
-              handleFilterChange(column, Number(e.target.value) || 0)
+              handleFilterChangeWrapper(column, Number(e.target.value) || 0)
             }
             width="20%"
             placeholder={`Enter ${column}`}
@@ -388,7 +370,7 @@ const RankingsTable = () => {
         colorScheme="custom"
         bg="rgba(232, 158, 16, 0.88)"
         mt={4}
-        onClick={handleSearchAndFilter}
+        onClick={handleSearchAndFilterWrapper}
       >
         Filter
       </Button>
@@ -397,7 +379,7 @@ const RankingsTable = () => {
         colorScheme="custom"
         bg="rgba(232, 158, 16, 0.88)"
         mt={4}
-        onClick={handleResetFilters}
+        onClick={handleResetFiltersWrapper}
       >
         Reset Filters
       </Button>

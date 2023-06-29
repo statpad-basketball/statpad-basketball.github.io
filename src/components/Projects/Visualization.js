@@ -8,7 +8,13 @@ import {
   Select,
   HStack,
 } from "@chakra-ui/react";
-import { fetchData, filterData } from "../../utilities/data-backend-utils.js";
+import {
+  fetchData,
+  filterData,
+  handleResetFilters,
+  handleFilter,
+  handleFilterChange,
+} from "../../utilities/data-backend-utils.js";
 import { createScatterPlot } from "../../utilities/graph-utils.js";
 import styles from "./Rankings.module.css";
 
@@ -47,18 +53,16 @@ const Visualization = () => {
     createScatterPlot(chartRef, filteredData, xAxisColumn);
   }, [filteredData, xAxisColumn]);
 
-  const handleFilter = () => {
-    const filteredResult = filterData(data, filters);
-    setFilteredData(filteredResult);
+  const handleFilterWrapper = () => {
+    handleFilter(data, filters, setFilteredData);
   };
 
-  const handleResetFilters = () => {
-    setFilters({});
-    setFilteredData(data);
+  const handleResetFiltersWrapper = () => {
+    handleResetFilters(data, setFilters, setFilteredData, undefined);
   };
 
-  const handleFilterChange = (column, value) => {
-    setFilters((prevFilters) => ({ ...prevFilters, [column]: value }));
+  const handleFilterChangeWrapper = (column, value) => {
+    handleFilterChange(column, value, setFilters);
   };
 
   const handleXAxisChange = (event) => {
@@ -76,7 +80,7 @@ const Visualization = () => {
                 type="number"
                 value={filters[column] !== undefined ? filters[column] : ""}
                 onChange={(e) =>
-                  handleFilterChange(column, Number(e.target.value) || 0)
+                  handleFilterChangeWrapper(column, Number(e.target.value) || 0)
                 }
                 width="45%"
                 placeholder={`Enter ${column}`}
@@ -87,7 +91,7 @@ const Visualization = () => {
             colorScheme="custom"
             bg="rgba(232, 158, 16, 0.88)"
             mt={4}
-            onClick={handleFilter}
+            onClick={handleFilterWrapper}
           >
             Filter
           </Button>
@@ -96,7 +100,7 @@ const Visualization = () => {
             colorScheme="custom"
             bg="rgba(232, 158, 16, 0.88)"
             mt={4}
-            onClick={handleResetFilters}
+            onClick={handleResetFiltersWrapper}
           >
             Reset Filters
           </Button>
