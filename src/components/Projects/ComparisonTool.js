@@ -41,16 +41,15 @@ import styles from "./Rankings.module.css";
 const columnNames = [
   "MVP",
   "All_Star",
-  "FG_totals",
-  "TRB_totals",
-  "BLK_totals",
-  "pts_per_g_seasonal",
-  "ws_seasonal",
-  "PER_advanced",
-  "OWS_advanced",
-  "DWS_advanced",
-  "Champ",
-  "pred",
+  "Field_Goal_Percentage",
+  "Total_Rebounds",
+  "Total_Blocks",
+  "Points_Per_Game_Award",
+  "Win_Shares",
+  "Player_Efficiency_Rating",
+  "Offensive_Win_Shares",
+  "Defensive_Win_Shares",
+  "Championships",
 ];
 
 const ComparisonTool = () => {

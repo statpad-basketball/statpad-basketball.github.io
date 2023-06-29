@@ -15,7 +15,17 @@ model = joblib.load(model_path)
 scaler = joblib.load(scaler_path)
 
 # model_cols = ['All_Star','OWS_advanced', 'BLK_totals',  'FG%_totals',  'PER_advanced', 'MVP', 'ws_seasonal', 'pts_per_g_seasonal', 'DWS_advanced', 'TRB_totals', 'Champ']
-model_cols = ['MVP', 'All_Star', 'FG%_totals', 'TRB_totals', 'BLK_totals', 'pts_per_g_seasonal', 'ws_seasonal', 'PER_advanced', 'OWS_advanced', 'DWS_advanced', 'Champ']
+model_cols = ['MVP',
+    'All_Star',
+    'Field_Goal_Percentage',
+    'Total_Rebounds',
+    'Total_Blocks',
+    'Points_Per_Game_Award',
+    'Win_Shares',
+    'Player_Efficiency_Rating',
+    'Offensive_Win_Shares',
+    'Defensive_Win_Shares',
+    'Championships']
 
 # Define a route for prediction
 @app.route('/predict', methods=['POST'])

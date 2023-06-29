@@ -32,15 +32,15 @@ import styles from "./Rankings.module.css";
 const columnNames = [
   "MVP",
   "All_Star",
-  "FG_totals",
-  "TRB_totals",
-  "BLK_totals",
-  "pts_per_g_seasonal",
-  "ws_seasonal",
-  "PER_advanced",
-  "OWS_advanced",
-  "DWS_advanced",
-  "Champ",
+  "Field_Goal_Percentage",
+  "Total_Rebounds",
+  "Total_Blocks",
+  "Points_Per_Game_Award",
+  "Win_Shares",
+  "Player_Efficiency_Rating",
+  "Offensive_Win_Shares",
+  "Defensive_Win_Shares",
+  "Championships",
 ];
 
 const tooSmallForBubblesWidth = 1250; // Adjust the value as per your requirements
@@ -59,7 +59,7 @@ const RankingsTable = () => {
   useEffect(() => {
     const fetchAndSortData = async () => {
       const fetchedData = await fetchData();
-      const sortedData = sortData(fetchedData, "pred");
+      const sortedData = sortData(fetchedData, "Prediction");
       setData(sortedData);
       setFilteredData(sortedData);
     };
@@ -160,37 +160,53 @@ const RankingsTable = () => {
     setCurrentPage(1); // Reset pagination to first page
   };
 
+  // Find if LeBron James or Bill Russell are present in the displayedData
+  const isLeBronJamesPresent = displayedData.some(
+    (row) => row["Player"] === "LeBron James"
+  );
+  const isBillRussellPresent = displayedData.some(
+    (row) => row["Player"] === "Bill Russell"
+  );
+
   return (
     <Flex p="10" flexDir="column">
       {!showAllStats && screenWidth >= tooSmallForBubblesWidth && (
         <>
-          <RankingsTextBubble
-            bubbleClass={styles.lebronTextBubble}
-            textmargLeft={"10px"}
-            textmargRight={"0px"}
-            bubbleText={
-              "With a resume including 18 All-Star selections, a record-high 18 All-NBA selections, 4 MVPs, and 4 NBA championships, LeBron comfortably grabs the top spot as the biggest Hall of Fame lock of all time."
-            }
-          />
-          <RankingsTextBubble
-            bubbleClass={styles.russellTextBubble}
-            textmargLeft={"0px"}
-            textmargRight={"10px"}
-            bubbleText={
-              "Boasting a staggering 11 NBA championships, the most in the history of the sport, the late Bill Russell cemented himself as one of basketball’s greatest icons both as a player and a coach."
-            }
-          />
+          {isLeBronJamesPresent && (
+            <RankingsTextBubble
+              bubbleClass={styles.lebronTextBubble}
+              textmargLeft={"10px"}
+              textmargRight={"0px"}
+              bubbleText={
+                "With a resume including 18 All-Star selections, a record-high 18 All-NBA selections, 4 MVPs, and 4 NBA championships, LeBron comfortably grabs the top spot as the biggest Hall of Fame lock of all time."
+              }
+            />
+          )}
+          {isBillRussellPresent && (
+            <RankingsTextBubble
+              bubbleClass={styles.russellTextBubble}
+              textmargLeft={"0px"}
+              textmargRight={"10px"}
+              bubbleText={
+                "Boasting a staggering 11 NBA championships, the most in the history of the sport, the late Bill Russell cemented himself as one of basketball’s greatest icons both as a player and a coach."
+              }
+            />
+          )}
 
-          <Image
-            className={styles.lebronPanel}
-            alt=""
-            src="lebron-rankings-panel.svg"
-          />
-          <Image
-            className={styles.russellPanel}
-            alt=""
-            src="bill-russell-rankings-panel.svg"
-          />
+          {isLeBronJamesPresent && (
+            <Image
+              className={styles.lebronPanel}
+              alt=""
+              src="lebron-rankings-panel.svg"
+            />
+          )}
+          {isBillRussellPresent && (
+            <Image
+              className={styles.russellPanel}
+              alt=""
+              src="bill-russell-rankings-panel.svg"
+            />
+          )}
         </>
       )}
 
@@ -271,20 +287,23 @@ const RankingsTable = () => {
               <Tbody>
                 {displayedData.map((row, index) => {
                   const rank = (currentPage - 1) * playersPerPage + index + 1;
+                  const playerName = row["Player"];
                   return (
                     <Tr
                       key={index}
                       color={
-                        index === 0
+                        playerName === "LeBron James"
                           ? "#E1AA0F"
-                          : index === 3
+                          : playerName === "Bill Russell"
                           ? "green"
                           : undefined
                       }
                     >
                       <Td>{rank}</Td>
                       <Td>{row["Player"]}</Td>
-                      <Td isNumeric>{Math.round(row["pred"] * 100) / 100}</Td>
+                      <Td isNumeric>
+                        {Math.round(row["Prediction"] * 100) / 100}
+                      </Td>
                       {showAllStats &&
                         columnNames.map((column) => (
                           <Td key={column}>{row[column]}</Td>
