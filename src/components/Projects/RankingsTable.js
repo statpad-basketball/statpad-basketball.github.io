@@ -22,8 +22,12 @@ import {
   fetchData,
   sortData,
   filterData,
+} from "../../utilities/data-backend-utils.js"; // import from your utility file
+
+import {
   paginateData,
-} from "./rankings-utils.js"; // import from your utility file
+  getPageRange,
+} from "../../utilities/table-frontend-utils.js";
 
 import RankingsTextBubble from "./RankingsTextBubble";
 import styles from "./Rankings.module.css";

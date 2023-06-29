@@ -18,8 +18,12 @@ import {
 } from "@choc-ui/chakra-autocomplete";
 
 import axios from 'axios';
-import { fetchData, sortData } from "./rankings-utils.js"; // import from your utility file
+import { fetchData, sortData } from "../../utilities/data-backend-utils.js"; // import from your utility file
 import { debounce } from "lodash";
+import {
+  debouncedHandleSearchInputChange,
+  handleNameSelection,
+} from "../../utilities/search-utils.js";
 
 const columnNames = [
   "MVP",
@@ -67,44 +71,15 @@ const Sandbox = () => {
     fetchAndSortData();
   }, []);
 
-  // const handleSearchInputChange1 = (e) => {
-  //   const inputText = e.target.value;
-
-  //   const suggestedNames = data
-  //     .filter((row) =>
-  //       row["Player"].toLowerCase().startsWith(inputText.toLowerCase())
-  //     )
-  //     .map((row) => row["Player"]);
-
-  //   setNameSuggestions1(suggestedNames);
-  // };
-  const debouncedHandleSearchInputChange1 = debounce((inputText) => {
-    const suggestedNames = data
-      .filter((row) =>
-        row["Player"].toLowerCase().startsWith(inputText.toLowerCase())
-      )
-      .map((row) => row["Player"]);
-
-    setNameSuggestions1(suggestedNames);
-  }, 300);
-
   const handleSearchInputChange1 = (e) => {
     const inputText = e.target.value.trim();
-
-    if (inputText === "") {
-      setNameSuggestions1([]);
-      return;
-    }
-
-    debouncedHandleSearchInputChange1(inputText);
+    debouncedHandleSearchInputChange(inputText, data, setNameSuggestions1);
   };
 
   const handleNameSelection1 = (selectedName) => {
-    const playerData = data.find((row) => row["Player"] === selectedName);
-    setSelectedPlayerData1(playerData);
+    handleNameSelection(selectedName, data, setSelectedPlayerData1);
   };
 
-  
   const generateRandomStats = () => {
     const randomValues = {};
 

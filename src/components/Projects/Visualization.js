@@ -8,7 +8,11 @@ import {
   Select,
   HStack,
 } from "@chakra-ui/react";
-import { fetchData, sortData, filterData } from "./rankings-utils.js";
+import {
+  fetchData,
+  sortData,
+  filterData,
+} from "../../utilities/data-backend-utils.js";
 import * as d3 from "d3";
 import tip from "d3-tip";
 import styles from "./Rankings.module.css";
@@ -35,14 +39,13 @@ const Visualization = () => {
   const chartRef = useRef(null);
 
   useEffect(() => {
-    const fetchAndSortData = async () => {
+    const setFetchedData = async () => {
       const fetchedData = await fetchData();
-      const sortedData = sortData(fetchedData, "Prediction");
-      setData(sortedData);
-      setFilteredData(sortedData);
+      setData(fetchedData);
+      setFilteredData(fetchedData);
     };
 
-    fetchAndSortData();
+    setFetchedData();
   }, []);
 
   useEffect(() => {
@@ -55,7 +58,7 @@ const Visualization = () => {
         ),
         d3.max(filteredData, (d) => d[xAxisColumn]),
       ])
-      .range([40, 760]);
+      .range([40, 720]);
 
     const yScale = d3
       .scaleLinear()
@@ -121,7 +124,7 @@ const Visualization = () => {
         .attr("class", "tooltip-text")
         .attr("x", xScale(d[xAxisColumn]) + 10)
         .attr("y", yScale(Prediction) + 10)
-        .text(`Probability: ${Prediction}`)
+        .text(`Probability: ${Math.round(Prediction * 100) / 100}`)
         .style("font-size", "12px");
 
       tooltipBox

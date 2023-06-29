@@ -27,8 +27,11 @@ import {
   AutoCompleteList,
 } from "@choc-ui/chakra-autocomplete";
 // import { parse } from 'papaparse';
-import { fetchData, sortData } from "./rankings-utils.js"; // import from your utility file
-import { debounce } from "lodash";
+import { fetchData, sortData } from "../../utilities/data-backend-utils.js"; // import from your utility file
+import {
+  debouncedHandleSearchInputChange,
+  handleNameSelection,
+} from "../../utilities/search-utils.js";
 
 // const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
 const columnNames = [
@@ -63,37 +66,21 @@ const ComparisonTool = () => {
   }, []);
 
   const handleSearchInputChange1 = (e) => {
-    const inputText = e.target.value;
-
-    const suggestedNames = data
-      .filter((row) =>
-        row["Player"].toLowerCase().startsWith(inputText.toLowerCase())
-      )
-      .map((row) => row["Player"]);
-
-    setNameSuggestions1(suggestedNames);
+    const inputText = e.target.value.trim();
+    debouncedHandleSearchInputChange(inputText, data, setNameSuggestions1);
   };
 
   const handleSearchInputChange2 = (e) => {
-    const inputText = e.target.value;
-
-    const suggestedNames = data
-      .filter((row) =>
-        row["Player"].toLowerCase().startsWith(inputText.toLowerCase())
-      )
-      .map((row) => row["Player"]);
-
-    setNameSuggestions2(suggestedNames);
+    const inputText = e.target.value.trim();
+    debouncedHandleSearchInputChange(inputText, data, setNameSuggestions2);
   };
 
   const handleNameSelection1 = (selectedName) => {
-    const playerData = data.find((row) => row["Player"] === selectedName);
-    setSelectedPlayerData1(playerData);
+    handleNameSelection(selectedName, data, setSelectedPlayerData1);
   };
 
   const handleNameSelection2 = (selectedName) => {
-    const playerData = data.find((row) => row["Player"] === selectedName);
-    setSelectedPlayerData2(playerData);
+    handleNameSelection(selectedName, data, setSelectedPlayerData2);
   };
 
   return (
