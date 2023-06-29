@@ -8,7 +8,7 @@ const ByBar = () => {
     <Stack
       borderWidth="1px"
       borderRadius="30"
-      w="100%"
+      w="90%"
       height="64px"
       direction="row"
       bg="#F2F0F0"
@@ -17,7 +17,6 @@ const ByBar = () => {
       justifyContent="center"
       alignItems="center"
       position="absolute"
-      width="1353px"
       left="48px"
       top="298px"
     >

@@ -25,9 +25,7 @@ import {
   paginateData,
 } from "./rankings-utils.js"; // import from your utility file
 
-import ByBar from "../Articles/ByBar";
 import RankingsTextBubble from "./RankingsTextBubble";
-import ToolSelector from "./ToolSelector";
 import styles from "./Rankings.module.css";
 
 //const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];

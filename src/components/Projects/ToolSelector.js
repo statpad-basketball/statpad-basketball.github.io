@@ -1,8 +1,16 @@
 import React from "react";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  StylesProvider,
+} from "@chakra-ui/react";
 import Sandbox from "./Sandbox";
 import RankingsTable from "./RankingsTable";
 import ComparisonTool from "./ComparisonTool";
+import styles from "./Rankings.module.css";
 
 //TODO: Add style to text
 
@@ -19,7 +27,7 @@ const ToolSelector = () => {
         justifyContent="center"
         alignItems="center"
         position="absolute"
-        top="648px"
+        className={styles.tabList}
       >
         <Tab fontWeight="bold" _selected={{ borderBottom: "4px solid orange" }}>
           Probabilities Tool

@@ -1,47 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Button,
-  Center,
   Flex,
   Heading,
   Image,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
-  Stack,
-  Input,
+  useBreakpointValue,
 } from "@chakra-ui/react";
-// import { parse } from 'papaparse';
-import {
-  fetchData,
-  sortData,
-  filterData,
-  paginateData,
-} from "./rankings-utils.js"; // import from your utility file
 
 import ByBar from "../Articles/ByBar";
-import RankingsTextBubble from "./RankingsTextBubble";
 import ToolSelector from "./ToolSelector";
 import styles from "./Rankings.module.css";
 
+const tooSmallForHeadersWidth = 1200; // Adjust the value as per your requirements
+
 const RankingsUpdated = () => {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const fontSize = useBreakpointValue({
+    small: "3xl",
+    base: "4xl",
+    md: "5xl",
+    lg: "5xl",
+  });
+
+  // Add an event listener to update the screen width when it changes
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Flex p="10" flexDir="column">
-      <Heading className={styles.hofText} fontSize="5xl">
+      <Heading className={styles.hofText} fontSize={fontSize}>
         HALL OF FAME CALCULATOR
       </Heading>
 
       <ByBar />
-      <Image
-        className={styles.headerPlayers}
-        src={"rankings-header-players.svg"}
-      />
+      {screenWidth >= tooSmallForHeadersWidth && (
+        <>
+          <Image
+            className={styles.headerPlayers}
+            src={"rankings-header-players.svg"}
+          />
+        </>
+      )}
 
       <Text className={styles.questionText} pb="5" fontSize="2xl" as="i">
         In the eyes of voters, what makes an NBA player worthy of induction into

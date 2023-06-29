@@ -49,7 +49,7 @@
     position: absolute;
     width: 448px;
     height: 256px;
-    left: 105px;
+    left: 8%;
     top: 105px;
 }
 
@@ -57,18 +57,20 @@
     position: absolute;
     width: 820px;
     height: 113px;
-    left: 544px;
+    left: 45%;
     top: 207px;
-
-
-    text-align: right;
-
     color: #E89E10;
+}
+
+@media (max-width: 1200px) {
+    .hofText {
+      left: 16%; /* Remove the min-width property */
+    }
 }
 
 .questionText {
     position: absolute;
-    width: 1317px;
+    width: 86%;
     height: 48px;
     left: 62px;
     top: 396px;
@@ -88,9 +90,9 @@
 
 .descriptionText {
     position: absolute;
-    width: 1309px;
+    width: 93%;
     height: 165px;
-    left: 70px;
+    left: 4.9%;
     top: 508px;
 
     /*font-family: 'Open Sans';*/
@@ -101,6 +103,33 @@
     text-align: center;
 
     color: #000000;
+}
+
+.tabList {
+    position: "absolute";
+    top: 648px;
+}
+
+@media (max-width: 963px) {
+
+    .descriptionText {
+      top: 558px; /* Remove the min-width property */
+    }
+
+    .tabList {
+        top: 668px;
+    }
+}
+
+@media (max-width: 628px) {
+
+    .descriptionText {
+      top: 608px; /* Remove the min-width property */
+    }
+
+    .tabList {
+        top: 718px;
+    }
 }
 
 .rankingsTable {
