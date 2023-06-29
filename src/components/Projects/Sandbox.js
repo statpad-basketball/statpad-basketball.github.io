@@ -2,26 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button,
-  Center,
   Flex,
-  Heading,
-  Image,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
   Stack,
   Input,
+  FormControl,
+  FormLabel
 } from '@chakra-ui/react';
-// import { parse } from 'papaparse';
 
-import ByBar from '../Articles/ByBar';
-import styles from './Rankings.module.css';
+import {
+  AutoComplete,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+} from "@choc-ui/chakra-autocomplete";
+
 import axios from 'axios';
+import { fetchData, sortData } from "./rankings-utils.js"; // import from your utility file
+import { debounce } from "lodash";
 
 const columnNames = [
   "MVP",
@@ -56,6 +54,56 @@ const columnRanges = {
 const Sandbox = () => {
   const [data, setData] = useState([]);
   const [predictedProbability, setPredictedProbability] = useState(null); // Add state for predicted probability
+  const [nameSuggestions1, setNameSuggestions1] = useState([]);
+  const [selectedPlayerData1, setSelectedPlayerData1] = useState({});
+
+  useEffect(() => {
+    const fetchAndSortData = async () => {
+      const fetchedData = await fetchData();
+      const sortedData = sortData(fetchedData, "pred");
+      setData(sortedData);
+    };
+
+    fetchAndSortData();
+  }, []);
+
+  // const handleSearchInputChange1 = (e) => {
+  //   const inputText = e.target.value;
+
+  //   const suggestedNames = data
+  //     .filter((row) =>
+  //       row["Player"].toLowerCase().startsWith(inputText.toLowerCase())
+  //     )
+  //     .map((row) => row["Player"]);
+
+  //   setNameSuggestions1(suggestedNames);
+  // };
+  const debouncedHandleSearchInputChange1 = debounce((inputText) => {
+    const suggestedNames = data
+      .filter((row) =>
+        row["Player"].toLowerCase().startsWith(inputText.toLowerCase())
+      )
+      .map((row) => row["Player"]);
+
+    setNameSuggestions1(suggestedNames);
+  }, 300);
+
+  const handleSearchInputChange1 = (e) => {
+    const inputText = e.target.value.trim();
+
+    if (inputText === "") {
+      setNameSuggestions1([]);
+      return;
+    }
+
+    debouncedHandleSearchInputChange1(inputText);
+  };
+
+  const handleNameSelection1 = (selectedName) => {
+    const playerData = data.find((row) => row["Player"] === selectedName);
+    setSelectedPlayerData1(playerData);
+  };
+
   
   const generateRandomStats = () => {
     const randomValues = {};
@@ -72,13 +120,13 @@ const Sandbox = () => {
       randomValues[column] = randomValue;
     });
 
-    setData(randomValues);
+    setSelectedPlayerData1(randomValues);
   };
 
     const generateHOFProbabilities = async () => {
         // Prepare the input data
         const inputValues = columnNames.reduce((values, column) => {
-            values[column] = parseFloat(data[column] || 0);
+            values[column] = parseFloat(selectedPlayerData1[column] || 0);
             return values;
           }, {});
       
@@ -99,7 +147,7 @@ const Sandbox = () => {
       };
 
     const handleInputChange = (column, value) => {
-    setData((prevData) => ({
+      setSelectedPlayerData1((prevData) => ({
         ...prevData,
         [column]: value,
     }));
@@ -107,15 +155,38 @@ const Sandbox = () => {
 
   return (
     <Flex p="10" flexDir="column">
-
         <Stack mt={600} ml={200}>
+        <FormControl w="60" mb={8}>
+            <FormLabel>Fill Stats with Player</FormLabel>
+            <AutoComplete openOnFocus>
+              <AutoCompleteInput
+                variant="filled"
+                onChange={handleSearchInputChange1}
+                placeholder="Search by name"
+                list="nameSuggestions1"
+              />
+              <AutoCompleteList>
+                {nameSuggestions1.map((name, index) => (
+                  <AutoCompleteItem
+                    key={index}
+                    value={name}
+                    textTransform="capitalize"
+                    onMouseDown={() => handleNameSelection1(name)}
+                    onTouchStart={() => handleNameSelection1(name)}
+                  >
+                    {name}
+                  </AutoCompleteItem>
+                ))}
+              </AutoCompleteList>
+            </AutoComplete>
+          </FormControl>
         {columnNames.map((column) => (
             <Stack direction="row" align="center" mt={4} key={column}>
             <Text fontWeight="bold">{column}:</Text>
             <Input
                 id={`${column}_input`}
                 type="number"
-                value={data[column] !== undefined ? data[column] : ''}
+                value={selectedPlayerData1[column] !== undefined ? selectedPlayerData1[column] : ''}
                 onChange={(e) => handleInputChange(column, e.target.value)}
                 width="20%"
                 placeholder={`Enter ${column}`}

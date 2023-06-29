@@ -27,15 +27,8 @@ import {
   AutoCompleteList,
 } from "@choc-ui/chakra-autocomplete";
 // import { parse } from 'papaparse';
-import {
-  fetchData,
-  sortData,
-  filterData,
-  paginateData,
-} from "./rankings-utils.js"; // import from your utility file
-
-import ByBar from "../Articles/ByBar.js";
-import styles from "./Rankings.module.css";
+import { fetchData, sortData } from "./rankings-utils.js"; // import from your utility file
+import { debounce } from "lodash";
 
 // const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
 const columnNames = [
