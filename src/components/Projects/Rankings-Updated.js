@@ -8,8 +8,9 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import ByBar from "../Articles/ByBar";
-import ToolSelector from "./ToolSelector";
+import { updateScreenWidth } from "../../utilities/general-utils.js";
+import ByBar from "../Articles/ByBar.js";
+import ToolSelector from "./ToolSelector.js";
 import styles from "./Rankings.module.css";
 
 const tooSmallForHeadersWidth = 1200; // Adjust the value as per your requirements
@@ -25,14 +26,10 @@ const RankingsUpdated = () => {
 
   // Add an event listener to update the screen width when it changes
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
+    const handleResizeCleanup = updateScreenWidth(setScreenWidth);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      handleResizeCleanup();
     };
   }, []);
 

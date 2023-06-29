@@ -30,9 +30,16 @@ import {
   paginateData,
   getPageRange,
   handleToggleEligibilityButtonClick,
+  isPlayerPresent,
+  goToFirstPage,
+  goToPreviousPage,
+  goToNextPage,
+  goToLastPage,
 } from "../../utilities/table-frontend-utils.js";
 
-import RankingsTextBubble from "./RankingsTextBubble";
+import { updateScreenWidth } from "../../utilities/general-utils.js";
+
+import RankingsTextBubble from "./RankingsTextBubble.js";
 import styles from "./Rankings.module.css";
 
 //const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
@@ -74,16 +81,11 @@ const RankingsTable = () => {
     fetchAndSortData();
   }, []);
 
-  // Add an event listener to update the screen width when it changes
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
+    const handleResizeCleanup = updateScreenWidth(setScreenWidth);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      handleResizeCleanup();
     };
   }, []);
 
@@ -93,26 +95,20 @@ const RankingsTable = () => {
     playersPerPage
   );
 
-  const goToFirstPage = () => {
-    setCurrentPage(1);
+  const handleGoToFirstPage = () => {
+    goToFirstPage(setCurrentPage);
   };
 
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
+  const handleGoToPreviousPage = () => {
+    goToPreviousPage(currentPage, setCurrentPage);
   };
 
-  const goToNextPage = () => {
-    const maxPage = Math.ceil(filteredData.length / playersPerPage);
-    if (currentPage < maxPage) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
+  const handleGoToNextPage = () => {
+    goToNextPage(currentPage, setCurrentPage, filteredData, playersPerPage);
   };
 
-  const goToLastPage = () => {
-    const maxPage = Math.ceil(filteredData.length / playersPerPage);
-    setCurrentPage(maxPage);
+  const handleGoToLastPage = () => {
+    goToLastPage(setCurrentPage, filteredData, playersPerPage);
   };
 
   const toggleShowAllStats = () => {
@@ -143,12 +139,8 @@ const RankingsTable = () => {
   };
 
   // Find if LeBron James or Bill Russell are present in the displayedData
-  const isLeBronJamesPresent = displayedData.some(
-    (row) => row["Player"] === "LeBron James"
-  );
-  const isBillRussellPresent = displayedData.some(
-    (row) => row["Player"] === "Bill Russell"
-  );
+  const isLeBronJamesPresent = isPlayerPresent(displayedData, "LeBron James");
+  const isBillRussellPresent = isPlayerPresent(displayedData, "Bill Russell");
 
   return (
     <Flex p="10" flexDir="column">
@@ -316,28 +308,28 @@ const RankingsTable = () => {
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={goToFirstPage}
+                          onClick={handleGoToFirstPage}
                         >
                           First
                         </Button>
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={goToPreviousPage}
+                          onClick={handleGoToPreviousPage}
                         >
                           Previous
                         </Button>
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={goToNextPage}
+                          onClick={handleGoToNextPage}
                         >
                           Next
                         </Button>
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={goToLastPage}
+                          onClick={handleGoToLastPage}
                         >
                           Last
                         </Button>

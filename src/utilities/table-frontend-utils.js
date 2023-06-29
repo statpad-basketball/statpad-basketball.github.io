@@ -14,6 +14,33 @@ export const paginateData = (data, currentPage, itemsPerPage) => {
   };
 };
 
+export const goToFirstPage = (setCurrentPage) => {
+  setCurrentPage(1);
+};
+
+export const goToPreviousPage = (currentPage, setCurrentPage) => {
+  if (currentPage > 1) {
+    setCurrentPage((prevPage) => prevPage - 1);
+  }
+};
+
+export const goToNextPage = (
+  currentPage,
+  setCurrentPage,
+  filteredData,
+  playersPerPage
+) => {
+  const maxPage = Math.ceil(filteredData.length / playersPerPage);
+  if (currentPage < maxPage) {
+    setCurrentPage((prevPage) => prevPage + 1);
+  }
+};
+
+export const goToLastPage = (setCurrentPage, filteredData, playersPerPage) => {
+  const maxPage = Math.ceil(filteredData.length / playersPerPage);
+  setCurrentPage(maxPage);
+};
+
 export const handleToggleEligibilityButtonClick = (
   button,
   data,
@@ -31,4 +58,8 @@ export const handleToggleEligibilityButtonClick = (
 
   setFilteredData(filteredResult);
   setCurrentPage(1); // Reset pagination to first page
+};
+
+export const isPlayerPresent = (displayedData, playerName) => {
+  return displayedData.some((row) => row["Player"] === playerName);
 };

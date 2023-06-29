@@ -123,10 +123,6 @@
 
 @media (max-width: 628px) {
 
-    .descriptionText {
-      top: 608px; /* Remove the min-width property */
-    }
-
     .tabList {
         top: 718px;
     }
