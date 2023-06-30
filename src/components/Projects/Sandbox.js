@@ -18,8 +18,10 @@ import {
 } from "@choc-ui/chakra-autocomplete";
 
 import axios from "axios";
-import { fetchData, sortData } from "../../utilities/data-backend-utils.js"; // import from your utility file
-import { debounce } from "lodash";
+import {
+  generateRandomStats,
+  generateHOFProbabilities,
+} from "../../utilities/sandbox-utils.js";
 import {
   debouncedHandleSearchInputChange,
   handleNameSelection,
@@ -78,48 +80,22 @@ const Sandbox = (props) => {
     handleNameSelection(selectedName, data, setSelectedPlayerData1);
   };
 
-  const generateRandomStats = () => {
-    const randomValues = {};
-
-    columnNames.forEach((column) => {
-      const { minValue, maxValue } = columnRanges[column];
-      let randomValue = Math.random() * (maxValue - minValue) + minValue;
-
-      // Round the random value to the nearest integer for specific columns
-      if (integerColumns.includes(column)) {
-        randomValue = Math.round(randomValue);
-      }
-
-      randomValues[column] = randomValue;
-    });
-
+  const generateRandomStatsWrapper = () => {
+    const randomValues = generateRandomStats(
+      columnNames,
+      integerColumns,
+      columnRanges
+    );
     setSelectedPlayerData1(randomValues);
   };
 
-  const generateHOFProbabilities = async () => {
-    // Prepare the input data
-    const inputValues = columnNames.reduce((values, column) => {
-      values[column] = parseFloat(selectedPlayerData1[column] || 0);
-      return values;
-    }, {});
-
-    try {
-      // Make a POST request to the server
-      const response = await axios.post(
-        "http://localhost:2000/predict",
-        inputValues
-      );
-
-      // Get the predicted probabilities from the response
-      const { predictedProbabilities } = response.data;
-
-      setPredictedProbability(predictedProbabilities[0]); // Assuming only one predicted probability
-
-      // Do something with the predicted probabilities
-      console.log("Predicted Probabilities:", data.predictedProbabilities);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  const generateHOFProbabilitiesWrapper = async () => {
+    const predictedProbability = await generateHOFProbabilities(
+      axios,
+      columnNames,
+      selectedPlayerData1
+    );
+    setPredictedProbability(predictedProbability);
   };
 
   const handleInputChange = (column, value) => {
@@ -179,7 +155,7 @@ const Sandbox = (props) => {
         colorScheme="custom"
         bg="rgba(232, 158, 16, 0.88)"
         mt={4}
-        onClick={generateRandomStats}
+        onClick={generateRandomStatsWrapper}
       >
         Generate Random Statistics
       </Button>
@@ -188,7 +164,7 @@ const Sandbox = (props) => {
         colorScheme="custom"
         bg="rgba(232, 158, 16, 0.88)"
         mt={4}
-        onClick={generateHOFProbabilities}
+        onClick={generateHOFProbabilitiesWrapper}
       >
         Generate Hall of Fame Probabilities
       </Button>
