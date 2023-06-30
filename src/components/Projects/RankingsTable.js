@@ -37,8 +37,6 @@ import {
   goToLastPage,
 } from "../../utilities/table-frontend-utils.js";
 
-import { updateScreenWidth } from "../../utilities/general-utils.js";
-
 import RankingsTextBubble from "./RankingsTextBubble.js";
 import styles from "./Rankings.module.css";
 
@@ -59,8 +57,8 @@ const columnNames = [
 
 const tooSmallForBubblesWidth = 1250; // Adjust the value as per your requirements
 
-const RankingsTable = () => {
-  const [data, setData] = useState([]);
+const RankingsTable = (props) => {
+  const { screenWidth, data } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [playersPerPage, setPlayersPerPage] = useState(25);
   const [filters, setFilters] = useState({});
@@ -68,26 +66,10 @@ const RankingsTable = () => {
   const [searchText, setSearchText] = useState("");
   const [showAllStats, setShowAllStats] = useState(false);
   const [activeButton, setActiveButton] = useState("all");
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    const fetchAndSortData = async () => {
-      const fetchedData = await fetchData();
-      const sortedData = sortData(fetchedData, "Prediction");
-      setData(sortedData);
-      setFilteredData(sortedData);
-    };
-
-    fetchAndSortData();
-  }, []);
-
-  useEffect(() => {
-    const handleResizeCleanup = updateScreenWidth(setScreenWidth);
-
-    return () => {
-      handleResizeCleanup();
-    };
-  }, []);
+    setFilteredData(data);
+  }, [data]);
 
   const { paginatedData: displayedData, maxPage } = paginateData(
     filteredData,

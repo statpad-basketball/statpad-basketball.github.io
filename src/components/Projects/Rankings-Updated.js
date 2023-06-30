@@ -63,7 +63,7 @@ const RankingsUpdated = () => {
         </Link>
       </Text>
 
-      <ToolSelector />
+      <ToolSelector screenWidth={screenWidth} />
     </Flex>
   );
 };

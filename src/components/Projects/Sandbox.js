@@ -63,21 +63,11 @@ const columnRanges = {
   Championships: { minValue: 0, maxValue: 6 }, // Range: 0 to 1
 };
 
-const Sandbox = () => {
-  const [data, setData] = useState([]);
+const Sandbox = (props) => {
+  const { data } = props;
   const [predictedProbability, setPredictedProbability] = useState(null); // Add state for predicted probability
   const [nameSuggestions1, setNameSuggestions1] = useState([]);
   const [selectedPlayerData1, setSelectedPlayerData1] = useState({});
-
-  useEffect(() => {
-    const fetchAndSortData = async () => {
-      const fetchedData = await fetchData();
-      const sortedData = sortData(fetchedData, "pred");
-      setData(sortedData);
-    };
-
-    fetchAndSortData();
-  }, []);
 
   const handleSearchInputChange1 = (e) => {
     const inputText = e.target.value.trim();

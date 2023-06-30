@@ -48,22 +48,12 @@ const columnNames = [
   "Championships",
 ];
 
-const ComparisonTool = () => {
-  const [data, setData] = useState([]);
+const ComparisonTool = (props) => {
+  const { data } = props;
   const [nameSuggestions1, setNameSuggestions1] = useState([]);
   const [nameSuggestions2, setNameSuggestions2] = useState([]);
   const [selectedPlayerData1, setSelectedPlayerData1] = useState({});
   const [selectedPlayerData2, setSelectedPlayerData2] = useState({});
-
-  useEffect(() => {
-    const fetchAndSortData = async () => {
-      const fetchedData = await fetchData();
-      const sortedData = sortData(fetchedData, "pred");
-      setData(sortedData);
-    };
-
-    fetchAndSortData();
-  }, []);
 
   const handleSearchInputChange1 = (e) => {
     const inputText = e.target.value.trim();

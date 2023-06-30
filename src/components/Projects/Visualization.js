@@ -32,22 +32,16 @@ const columnNames = [
   "Championships",
 ];
 
-const Visualization = () => {
-  const [data, setData] = useState([]);
+const Visualization = (props) => {
+  const { data } = props;
   const [filters, setFilters] = useState({});
   const [filteredData, setFilteredData] = useState([]);
   const [xAxisColumn, setXAxisColumn] = useState(columnNames[0]);
   const chartRef = useRef(null);
 
   useEffect(() => {
-    const setFetchedData = async () => {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
-      setFilteredData(fetchedData);
-    };
-
-    setFetchedData();
-  }, []);
+    setFilteredData(data);
+  }, [data]);
 
   useEffect(() => {
     createScatterPlot(chartRef, filteredData, xAxisColumn);
@@ -70,7 +64,7 @@ const Visualization = () => {
   };
 
   return (
-    <Flex p="10" flexDir="column">
+    <Flex p="10" flexDir="column" marginTop={"550px"}>
       <HStack>
         <Stack>
           {columnNames.map((column) => (
