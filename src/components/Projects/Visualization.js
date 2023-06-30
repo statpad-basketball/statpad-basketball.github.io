@@ -15,7 +15,10 @@ import {
   handleFilter,
   handleFilterChange,
 } from "../../utilities/data-backend-utils.js";
-import { createScatterPlot } from "../../utilities/graph-utils.js";
+import {
+  createScatterPlot,
+  handleXAxisChange,
+} from "../../utilities/graph-utils.js";
 import styles from "./Rankings.module.css";
 
 const columnNames = [
@@ -47,22 +50,6 @@ const Visualization = (props) => {
     createScatterPlot(chartRef, filteredData, xAxisColumn);
   }, [filteredData, xAxisColumn]);
 
-  const handleFilterWrapper = () => {
-    handleFilter(data, filters, setFilteredData);
-  };
-
-  const handleResetFiltersWrapper = () => {
-    handleResetFilters(data, setFilters, setFilteredData, undefined);
-  };
-
-  const handleFilterChangeWrapper = (column, value) => {
-    handleFilterChange(column, value, setFilters);
-  };
-
-  const handleXAxisChange = (event) => {
-    setXAxisColumn(event.target.value);
-  };
-
   return (
     <Flex p="10" flexDir="column" marginTop={"550px"}>
       <HStack>
@@ -74,7 +61,11 @@ const Visualization = (props) => {
                 type="number"
                 value={filters[column] !== undefined ? filters[column] : ""}
                 onChange={(e) =>
-                  handleFilterChangeWrapper(column, Number(e.target.value) || 0)
+                  handleFilterChange(
+                    column,
+                    Number(e.target.value) || 0,
+                    setFilters
+                  )
                 }
                 width="45%"
                 placeholder={`Enter ${column}`}
@@ -85,7 +76,7 @@ const Visualization = (props) => {
             colorScheme="custom"
             bg="rgba(232, 158, 16, 0.88)"
             mt={4}
-            onClick={handleFilterWrapper}
+            onClick={() => handleFilter(data, filters, setFilteredData)}
           >
             Filter
           </Button>
@@ -94,7 +85,9 @@ const Visualization = (props) => {
             colorScheme="custom"
             bg="rgba(232, 158, 16, 0.88)"
             mt={4}
-            onClick={handleResetFiltersWrapper}
+            onClick={() =>
+              handleResetFilters(data, setFilters, setFilteredData, undefined)
+            }
           >
             Reset Filters
           </Button>
@@ -110,7 +103,7 @@ const Visualization = (props) => {
             <Select
               mr={250}
               value={xAxisColumn}
-              onChange={handleXAxisChange}
+              onChange={(e) => handleXAxisChange(e, setXAxisColumn)}
               width="200px"
             >
               {columnNames.map((column) => (

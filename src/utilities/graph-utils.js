@@ -157,3 +157,7 @@ export const createScatterPlot = (chartRef, filteredData, xAxisColumn) => {
     .style("font-weight", "bold")
     .text(`Scatter plot of ${xAxisColumn} vs Prediction`);
 };
+
+export const handleXAxisChange = (event, setXAxisColumn) => {
+  setXAxisColumn(event.target.value);
+};
