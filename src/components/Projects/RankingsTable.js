@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Box,
   Button,
   ButtonGroup,
   Center,
@@ -232,6 +233,7 @@ const RankingsTable = (props) => {
                   <Th>Rank</Th>
                   <Th>Player Name</Th>
                   <Th isNumeric>HOF Probability</Th>
+                  <Th isNumeric>Hall of Fame</Th>
                   {showAllStats &&
                     columnNames.map((column) => <Th key={column}>{column}</Th>)}
                 </Tr>
@@ -255,6 +257,32 @@ const RankingsTable = (props) => {
                       <Td>{row["Player"]}</Td>
                       <Td isNumeric>
                         {Math.round(row["Prediction"] * 100) / 100}
+                      </Td>
+                      <Td>
+                        <Box
+                          display="flex"
+                          width="4.125rem"
+                          height="1.125rem"
+                          padding="0rem 0.25rem"
+                          alignItems="center"
+                          gap="0.25rem"
+                          flexShrink={0}
+                          borderRadius="6px"
+                          background="#FCF1DD"
+                          justifyContent="center" // Added to center the text horizontally
+                          color="rgba(155, 106, 10, 1)" // Set the text color
+                          fontSize="0.625rem"
+                          fontFamily="Inter"
+                          fontWeight={600}
+                          lineHeight="1.5rem"
+                          letterSpacing="-0.00375rem"
+                        >
+                          {row["Eligible"] === 0
+                            ? "Not Eligible"
+                            : row["Hall_of_Fame"]
+                            ? "Hall of Fame"
+                            : "Not Hall of Fame"}
+                        </Box>
                       </Td>
                       {showAllStats &&
                         columnNames.map((column) => (
