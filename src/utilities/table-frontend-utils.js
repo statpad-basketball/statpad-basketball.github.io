@@ -46,7 +46,8 @@ export const handleToggleEligibilityButtonClick = (
   data,
   filteredData,
   setFilteredData,
-  setCurrentPage
+  setCurrentPage,
+  setActiveButton
 ) => {
   let filteredResult = data;
 
@@ -58,8 +59,13 @@ export const handleToggleEligibilityButtonClick = (
 
   setFilteredData(filteredResult);
   setCurrentPage(1); // Reset pagination to first page
+  setActiveButton(button);
 };
 
 export const isPlayerPresent = (displayedData, playerName) => {
   return displayedData.some((row) => row["Player"] === playerName);
+};
+
+export const toggleShowAllStats = (setShowAllStats) => {
+  setShowAllStats((prevState) => !prevState);
 };

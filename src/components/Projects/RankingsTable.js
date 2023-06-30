@@ -17,24 +17,23 @@ import {
   Stack,
   Input,
 } from "@chakra-ui/react";
-// import { parse } from 'papaparse';
+
 import {
-  fetchData,
-  sortData,
   handleSearchAndFilter,
   handleResetFilters,
   handleFilterChange,
+  handleToggleEligibilityButtonClick,
 } from "../../utilities/data-backend-utils.js"; // import from your utility file
 
 import {
-  paginateData,
+  toggleShowAllStats,
   getPageRange,
-  handleToggleEligibilityButtonClick,
   isPlayerPresent,
   goToFirstPage,
   goToPreviousPage,
   goToNextPage,
   goToLastPage,
+  paginateData,
 } from "../../utilities/table-frontend-utils.js";
 
 import RankingsTextBubble from "./RankingsTextBubble.js";
@@ -76,49 +75,6 @@ const RankingsTable = (props) => {
     currentPage,
     playersPerPage
   );
-
-  const handleGoToFirstPage = () => {
-    goToFirstPage(setCurrentPage);
-  };
-
-  const handleGoToPreviousPage = () => {
-    goToPreviousPage(currentPage, setCurrentPage);
-  };
-
-  const handleGoToNextPage = () => {
-    goToNextPage(currentPage, setCurrentPage, filteredData, playersPerPage);
-  };
-
-  const handleGoToLastPage = () => {
-    goToLastPage(setCurrentPage, filteredData, playersPerPage);
-  };
-
-  const toggleShowAllStats = () => {
-    setShowAllStats((prevState) => !prevState);
-  };
-
-  // Wrapper functions to pass the correct data to utility functions
-  const handleSearchAndFilterWrapper = () => {
-    handleSearchAndFilter(data, filters, searchText, setFilteredData);
-  };
-
-  const handleFilterChangeWrapper = (column, value) => {
-    handleFilterChange(column, value, setFilters);
-  };
-
-  const handleResetFiltersWrapper = () => {
-    handleResetFilters(data, setFilters, setFilteredData, setSearchText);
-  };
-
-  const handleToggleEligibilityButtonClickWrapper = (button) => {
-    handleToggleEligibilityButtonClick(
-      button,
-      data,
-      filteredData,
-      setFilteredData,
-      setCurrentPage
-    );
-  };
 
   // Find if LeBron James or Bill Russell are present in the displayedData
   const isLeBronJamesPresent = isPlayerPresent(displayedData, "LeBron James");
@@ -175,7 +131,18 @@ const RankingsTable = (props) => {
             <Button
               colorScheme="custom"
               bg={activeButton === "all" ? "rgba(249, 250, 251, 1)" : "white"}
-              onClick={() => handleToggleEligibilityButtonClickWrapper("all")}
+              onClick={() =>
+                handleToggleEligibilityButtonClick(
+                  "all",
+                  data,
+                  filters,
+                  searchText,
+                  setFilters,
+                  setFilteredData,
+                  setCurrentPage,
+                  setActiveButton
+                )
+              }
               flex="1"
               color="rgba(52, 64, 84, 1)"
               border="1px solid rgba(208, 213, 221, 1)"
@@ -188,7 +155,16 @@ const RankingsTable = (props) => {
                 activeButton === "active" ? "rgba(249, 250, 251, 1)" : "white"
               }
               onClick={() =>
-                handleToggleEligibilityButtonClickWrapper("active")
+                handleToggleEligibilityButtonClick(
+                  "active",
+                  data,
+                  filters,
+                  searchText,
+                  setFilters,
+                  setFilteredData,
+                  setCurrentPage,
+                  setActiveButton
+                )
               }
               flex="1"
               borderColor="rgba(208, 213, 221, 1)"
@@ -204,7 +180,16 @@ const RankingsTable = (props) => {
                 activeButton === "historic" ? "rgba(249, 250, 251, 1)" : "white"
               }
               onClick={() =>
-                handleToggleEligibilityButtonClickWrapper("historic")
+                handleToggleEligibilityButtonClick(
+                  "historic",
+                  data,
+                  filters,
+                  searchText,
+                  setFilters,
+                  setFilteredData,
+                  setCurrentPage,
+                  setActiveButton
+                )
               }
               flex="1"
               color="rgba(52, 64, 84, 1)"
@@ -218,7 +203,14 @@ const RankingsTable = (props) => {
               type="text"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              onKeyUp={handleSearchAndFilterWrapper}
+              onKeyUp={() =>
+                handleSearchAndFilter(
+                  data,
+                  filters,
+                  searchText,
+                  setFilteredData
+                )
+              }
               width="80%"
               placeholder="Search by name"
             />
@@ -228,7 +220,7 @@ const RankingsTable = (props) => {
               mt={4}
               width="40%"
               fontSize="1xl"
-              onClick={toggleShowAllStats}
+              onClick={() => toggleShowAllStats(setShowAllStats)}
             >
               {showAllStats ? "Hide Player Stats" : "See Player Stats"}
             </Button>
@@ -290,28 +282,43 @@ const RankingsTable = (props) => {
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={handleGoToFirstPage}
+                          onClick={() => goToFirstPage(setCurrentPage)}
                         >
                           First
                         </Button>
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={handleGoToPreviousPage}
+                          onClick={() =>
+                            goToPreviousPage(currentPage, setCurrentPage)
+                          }
                         >
                           Previous
                         </Button>
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={handleGoToNextPage}
+                          onClick={() =>
+                            goToNextPage(
+                              currentPage,
+                              setCurrentPage,
+                              filteredData,
+                              playersPerPage
+                            )
+                          }
                         >
                           Next
                         </Button>
                         <Button
                           colorScheme="custom"
                           bg="rgba(232, 158, 16, 0.88)"
-                          onClick={handleGoToLastPage}
+                          onClick={() =>
+                            goToLastPage(
+                              setCurrentPage,
+                              filteredData,
+                              playersPerPage
+                            )
+                          }
                         >
                           Last
                         </Button>
@@ -332,7 +339,11 @@ const RankingsTable = (props) => {
             type="number"
             value={filters[column] !== undefined ? filters[column] : ""}
             onChange={(e) =>
-              handleFilterChangeWrapper(column, Number(e.target.value) || 0)
+              handleFilterChange(
+                column,
+                Number(e.target.value) || 0,
+                setFilters
+              )
             }
             width="20%"
             placeholder={`Enter ${column}`}
@@ -344,7 +355,9 @@ const RankingsTable = (props) => {
         colorScheme="custom"
         bg="rgba(232, 158, 16, 0.88)"
         mt={4}
-        onClick={handleSearchAndFilterWrapper}
+        onClick={() =>
+          handleSearchAndFilter(data, filters, searchText, setFilteredData)
+        }
       >
         Filter
       </Button>
@@ -353,7 +366,15 @@ const RankingsTable = (props) => {
         colorScheme="custom"
         bg="rgba(232, 158, 16, 0.88)"
         mt={4}
-        onClick={handleResetFiltersWrapper}
+        onClick={() =>
+          handleResetFilters(
+            data,
+            filters,
+            setFilters,
+            setFilteredData,
+            setSearchText
+          )
+        }
       >
         Reset Filters
       </Button>

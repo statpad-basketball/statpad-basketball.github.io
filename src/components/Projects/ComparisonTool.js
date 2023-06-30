@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import {
-  Button,
   Center,
   Flex,
   Heading,
-  Image,
   FormControl,
   FormLabel,
   Table,
   TableContainer,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
   HStack,
-  Stack,
-  Input,
 } from "@chakra-ui/react";
 import {
   AutoComplete,
@@ -26,14 +20,11 @@ import {
   AutoCompleteItem,
   AutoCompleteList,
 } from "@choc-ui/chakra-autocomplete";
-// import { parse } from 'papaparse';
-import { fetchData, sortData } from "../../utilities/data-backend-utils.js"; // import from your utility file
 import {
   debouncedHandleSearchInputChange,
   handleNameSelection,
 } from "../../utilities/search-utils.js";
 
-// const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
 const columnNames = [
   "MVP",
   "All_Star",
@@ -55,24 +46,6 @@ const ComparisonTool = (props) => {
   const [selectedPlayerData1, setSelectedPlayerData1] = useState({});
   const [selectedPlayerData2, setSelectedPlayerData2] = useState({});
 
-  const handleSearchInputChange1 = (e) => {
-    const inputText = e.target.value.trim();
-    debouncedHandleSearchInputChange(inputText, data, setNameSuggestions1);
-  };
-
-  const handleSearchInputChange2 = (e) => {
-    const inputText = e.target.value.trim();
-    debouncedHandleSearchInputChange(inputText, data, setNameSuggestions2);
-  };
-
-  const handleNameSelection1 = (selectedName) => {
-    handleNameSelection(selectedName, data, setSelectedPlayerData1);
-  };
-
-  const handleNameSelection2 = (selectedName) => {
-    handleNameSelection(selectedName, data, setSelectedPlayerData2);
-  };
-
   return (
     <Flex p="10" flexDir="column">
       <Center mt={600} width={"80%"}>
@@ -82,7 +55,13 @@ const ComparisonTool = (props) => {
             <AutoComplete openOnFocus>
               <AutoCompleteInput
                 variant="filled"
-                onChange={handleSearchInputChange1}
+                onChange={(e) =>
+                  debouncedHandleSearchInputChange(
+                    e.target.value.trim(),
+                    data,
+                    setNameSuggestions1
+                  )
+                }
                 placeholder="Search by name"
                 list="nameSuggestions1"
               />
@@ -92,8 +71,12 @@ const ComparisonTool = (props) => {
                     key={index}
                     value={name}
                     textTransform="capitalize"
-                    onMouseDown={() => handleNameSelection1(name)}
-                    onTouchStart={() => handleNameSelection1(name)}
+                    onMouseDown={() =>
+                      handleNameSelection(name, data, setSelectedPlayerData1)
+                    }
+                    onTouchStart={() =>
+                      handleNameSelection(name, data, setSelectedPlayerData1)
+                    }
                   >
                     {name}
                   </AutoCompleteItem>
@@ -106,7 +89,13 @@ const ComparisonTool = (props) => {
             <AutoComplete openOnFocus>
               <AutoCompleteInput
                 variant="filled"
-                onChange={handleSearchInputChange2}
+                onChange={(e) =>
+                  debouncedHandleSearchInputChange(
+                    e.target.value.trim(),
+                    data,
+                    setNameSuggestions2
+                  )
+                }
                 placeholder="Search by name"
                 list="nameSuggestions2"
               />
@@ -116,8 +105,12 @@ const ComparisonTool = (props) => {
                     key={index}
                     value={name}
                     textTransform="capitalize"
-                    onMouseDown={() => handleNameSelection2(name)}
-                    onTouchStart={() => handleNameSelection2(name)}
+                    onMouseDown={() =>
+                      handleNameSelection(name, data, setSelectedPlayerData2)
+                    }
+                    onTouchStart={() =>
+                      handleNameSelection(name, data, setSelectedPlayerData2)
+                    }
                   >
                     {name}
                   </AutoCompleteItem>
