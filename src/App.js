@@ -13,6 +13,7 @@ import Methodology from "./components/Projects/Methodology";
 import Visualization from "./components/Projects/Visualization";
 import ChampRankings from "./components/Projects/Championship/Champ-Rankings";
 import ChampMethodology from "./components/Projects/Championship/Champ-Methodology";
+import Page404 from "./components/404/404";
 
 function App() {
   return (
@@ -102,11 +103,11 @@ function App() {
               }
             />
             <Route
-              path="/visualization"
+              path="*"
               element={
                 <>
                   <SubNavbar />
-                  <Visualization />
+                  <Page404 />
                 </>
               }
             />
