@@ -41,27 +41,6 @@ export const goToLastPage = (setCurrentPage, filteredData, playersPerPage) => {
   setCurrentPage(maxPage);
 };
 
-export const handleToggleEligibilityButtonClick = (
-  button,
-  data,
-  filteredData,
-  setFilteredData,
-  setCurrentPage,
-  setActiveButton
-) => {
-  let filteredResult = data;
-
-  if (button === "active") {
-    filteredResult = filteredResult.filter((row) => row["Eligible"] === 0);
-  } else if (button === "historic") {
-    filteredResult = filteredResult.filter((row) => row["Eligible"] === 1);
-  }
-
-  setFilteredData(filteredResult);
-  setCurrentPage(1); // Reset pagination to first page
-  setActiveButton(button);
-};
-
 export const isPlayerPresent = (displayedData, playerName) => {
   return displayedData.some((row) => row["Player"] === playerName);
 };

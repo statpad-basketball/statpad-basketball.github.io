@@ -11,6 +11,8 @@ import ExampleArticle from "./components/Articles/ExampleArticle";
 import Rankings from "./components/Projects/Rankings-Updated";
 import Methodology from "./components/Projects/Methodology";
 import Visualization from "./components/Projects/Visualization";
+import ChampRankings from "./components/Projects/Championship/Champ-Rankings";
+import ChampMethodology from "./components/Projects/Championship/Champ-Methodology";
 
 function App() {
   return (
@@ -51,6 +53,24 @@ function App() {
                 <>
                   <SubNavbar />
                   <About />
+                </>
+              }
+            />
+            <Route
+              path="/champ-rankings"
+              element={
+                <>
+                  <SubNavbar />
+                  <ChampRankings />
+                </>
+              }
+            />
+            <Route
+              path="/champ-methods"
+              element={
+                <>
+                  <SubNavbar />
+                  <ChampMethodology />
                 </>
               }
             />

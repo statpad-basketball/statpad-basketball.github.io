@@ -20,11 +20,13 @@ client
     console.log("Connected to MongoDB");
 
     // Endpoint to fetch the data from MongoDB
-    app.get("/rankings", async (req, res) => {
+    app.get("/hof-rankings/:collectionName", async (req, res) => {
       try {
+        const { collectionName } = req.params;
+
         // Get reference to the database and collection
         const db = client.db("statpad_db");
-        const collection = db.collection("hof_probs_v1_all");
+        const collection = db.collection(collectionName);
 
         // Fetch the data from MongoDB
         const data = await collection.find({}).toArray();

@@ -9,8 +9,6 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import {
-  fetchData,
-  filterData,
   handleResetFilters,
   handleFilter,
   handleFilterChange,

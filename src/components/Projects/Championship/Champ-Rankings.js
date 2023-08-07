@@ -24,7 +24,7 @@ import {
   handleResetFilters,
   handleFilterChange,
   handleToggleEligibilityButtonClick,
-} from "../../utilities/data-backend-utils.js"; // import from your utility file
+} from "../../../utilities/data-backend-utils.js"; // import from your utility file
 
 import {
   toggleShowAllStats,
@@ -35,10 +35,10 @@ import {
   goToNextPage,
   goToLastPage,
   paginateData,
-} from "../../utilities/table-frontend-utils.js";
+} from "../../../utilities/table-frontend-utils.js";
 
-import RankingsTextBubble from "./RankingsTextBubble.js";
-import styles from "./Rankings.module.css";
+import RankingsTextBubble from "../RankingsTextBubble.js";
+import styles from "../Rankings.module.css";
 
 //const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
 const columnNames = [
@@ -57,7 +57,7 @@ const columnNames = [
 
 const tooSmallForBubblesWidth = 1250; // Adjust the value as per your requirements
 
-const RankingsTable = (props) => {
+const ChampRankings = (props) => {
   const { screenWidth, data } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [playersPerPage, setPlayersPerPage] = useState(25);
@@ -421,4 +421,4 @@ const RankingsTable = (props) => {
   );
 };
 
-export default RankingsTable;
+export default ChampRankings;

@@ -1,9 +1,12 @@
 import axios from "axios";
 
 // fetch the data from the server
-export const fetchData = async () => {
+export const fetchData = async (endpoint, collectionName) => {
   try {
-    const response = await axios.get("http://localhost:2000/rankings");
+    const response = await axios.get(
+      "http://localhost:2000/" + endpoint + "/" + collectionName,
+      collectionName
+    );
     const data = response.data;
     return data;
   } catch (error) {

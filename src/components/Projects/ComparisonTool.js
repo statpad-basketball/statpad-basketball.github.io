@@ -24,6 +24,7 @@ import {
   debouncedHandleSearchInputChange,
   handleNameSelection,
 } from "../../utilities/search-utils.js";
+import { getCellColor } from "../../utilities/comparison-utils.js";
 
 const columnNames = [
   "MVP",
@@ -137,14 +138,24 @@ const ComparisonTool = (props) => {
           <Tbody>
             {columnNames.map((columnName) => (
               <Tr key={columnName}>
-                <Td>
+                <Td
+                  color={getCellColor(
+                    selectedPlayerData1[columnName],
+                    selectedPlayerData2[columnName]
+                  )}
+                >
                   {selectedPlayerData1 &&
                   Object.keys(selectedPlayerData1).length !== 0
                     ? Math.round(selectedPlayerData1[columnName] * 100) / 100
                     : ""}
                 </Td>
                 <Td>{columnName}</Td>
-                <Td>
+                <Td
+                  color={getCellColor(
+                    selectedPlayerData2[columnName],
+                    selectedPlayerData1[columnName]
+                  )}
+                >
                   {selectedPlayerData2 &&
                   Object.keys(selectedPlayerData2).length !== 0
                     ? Math.round(selectedPlayerData2[columnName] * 100) / 100

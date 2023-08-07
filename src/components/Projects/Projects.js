@@ -45,8 +45,12 @@ const Projects = () => {
         title="CHAMPIONSHIP PREDICTOR"
         date="COMING SOON"
         desc="What team is most poised to win the 2023 NBA Championship? Which teams have the highest playoff probabilities? We project the success of each team in the 2023 season."
-        button1="GitHub Repository"
+        button1="View Rankings"
+        buttonLink1="/champ-rankings"
         buttonColor="orange"
+        button2="View Methodology"
+        buttonLink2="/champ-methods"
+        buttonColor2="gray"
         img="wiggins.svg"
       />
       <ProjectPart
