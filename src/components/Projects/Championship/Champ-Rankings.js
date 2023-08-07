@@ -7,11 +7,10 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { fetchData, sortData } from "../../../utilities/data-backend-utils.js";
 import { updateScreenWidth } from "../../../utilities/general-utils.js";
 import ByBar from "../../Articles/ByBar.js";
 import styles from "../Rankings.module.css";
-import RankingsTable from "./RankingsTable.js";
+import ToolSelector from "./ToolSelector.js";
 
 const tooSmallForHeadersWidth = 1200; // Adjust the value as per your requirements
 
@@ -23,18 +22,6 @@ const ChampRankings = () => {
     md: "5xl",
     lg: "5xl",
   });
-
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchAndSortData = async () => {
-      const fetchedData = await fetchData("hof-rankings", "hof_probs_v1_all");
-      const sortedData = sortData(fetchedData, "Prediction");
-      setData(sortedData);
-    };
-
-    fetchAndSortData();
-  }, []);
 
   // Add an event listener to update the screen width when it changes
   useEffect(() => {
@@ -68,7 +55,7 @@ const ChampRankings = () => {
         Our live championship model is updated daily
       </Text>
 
-      <RankingsTable screenWidth={screenWidth} data={data} />
+      <ToolSelector screenWidth={screenWidth}></ToolSelector>
     </Flex>
   );
 };

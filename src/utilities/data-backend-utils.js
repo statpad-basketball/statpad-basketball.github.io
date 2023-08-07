@@ -1,4 +1,5 @@
 import axios from "axios";
+import { filter } from "d3";
 
 // fetch the data from the server
 export const fetchData = async (endpoint, collectionName) => {
@@ -25,6 +26,10 @@ export const filterData = (data, filters) => {
     Object.entries(filters).every(([column, filterValue]) => {
       if (column === "Eligible") {
         return player[column] === filterValue;
+      } else if (column === "Year") {
+        return (
+          player[column] >= filterValue.min && player[column] <= filterValue.max
+        );
       } else {
         return player[column] >= filterValue || filterValue === 0;
       }
@@ -34,6 +39,7 @@ export const filterData = (data, filters) => {
 
 export const handleSearchAndFilter = (
   data,
+  columnName,
   filters,
   searchText,
   setFilteredData
@@ -48,7 +54,7 @@ export const handleSearchAndFilter = (
   if (searchText !== "") {
     // Apply search within the filtered data
     filteredResult = filteredResult.filter((row) =>
-      row["Player"].toLowerCase().startsWith(searchText.toLowerCase())
+      row[columnName].toLowerCase().startsWith(searchText.toLowerCase())
     );
   }
 
@@ -73,7 +79,7 @@ export const handleResetFilters = (
 
   // Remove all filters except "Eligible"
   Object.keys(updatedFilters).forEach((key) => {
-    if (key !== "Eligible") {
+    if (key !== "Eligible" && key !== "Year") {
       delete updatedFilters[key];
     }
   });
@@ -121,5 +127,48 @@ export const handleToggleEligibilityButtonClick = (
   setActiveButton(button);
   setFilters(updatedFilters); // Update the filters state
   // Call handleSearchAndFilter with updated filters and searchText
-  handleSearchAndFilter(data, updatedFilters, searchText, setFilteredData);
+  handleSearchAndFilter(
+    data,
+    "Player",
+    updatedFilters,
+    searchText,
+    setFilteredData
+  );
+};
+
+export const handleToggleActiveTeamButtonClick = (
+  button,
+  data,
+  filters,
+  searchText,
+  setFilters,
+  setFilteredData,
+  setCurrentPage,
+  setActiveButton
+) => {
+  // Create a copy of filters object
+  const updatedFilters = { ...filters };
+
+  if (button === "active") {
+    updatedFilters["Year"] = { min: 2023, max: 2023 }; // Set the Year range for 'historic' button
+  } else if (button === "historic") {
+    updatedFilters["Year"] = { min: 1990, max: 2022 }; // Set the Year range for 'historic' button
+  } else if (button === "all") {
+    delete updatedFilters["Year"]; // Append the filter for 'historic' button
+  }
+
+  // Reset pagination to first page
+  setCurrentPage(1);
+
+  // Set the active button
+  setActiveButton(button);
+  setFilters(updatedFilters); // Update the filters state
+  // Call handleSearchAndFilter with updated filters and searchText
+  handleSearchAndFilter(
+    data,
+    "Team",
+    updatedFilters,
+    searchText,
+    setFilteredData
+  );
 };

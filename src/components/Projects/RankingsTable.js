@@ -218,6 +218,7 @@ const RankingsTable = (props) => {
               onKeyUp={() =>
                 handleSearchAndFilter(
                   data,
+                  "Player",
                   filters,
                   searchText,
                   setFilteredData
@@ -395,7 +396,13 @@ const RankingsTable = (props) => {
         bg="rgba(232, 158, 16, 0.88)"
         mt={4}
         onClick={() =>
-          handleSearchAndFilter(data, filters, searchText, setFilteredData)
+          handleSearchAndFilter(
+            data,
+            "Player",
+            filters,
+            searchText,
+            setFilteredData
+          )
         }
       >
         Filter

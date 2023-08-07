@@ -23,7 +23,6 @@ client
     app.get("/hof-rankings/:collectionName", async (req, res) => {
       try {
         const { collectionName } = req.params;
-
         // Get reference to the database and collection
         const db = client.db("statpad_db");
         const collection = db.collection(collectionName);
