@@ -19,7 +19,7 @@ const ToolSelector = (props) => {
   useEffect(() => {
     const fetchAndSortData = async () => {
       const fetchedData = await fetchData("hof-rankings", "championship_probs");
-      const sortedData = sortData(fetchedData, "Prediction");
+      const sortedData = sortData(fetchedData, "pred");
       setData(sortedData);
     };
 

@@ -16,7 +16,7 @@ import {
 import {
   createScatterPlot,
   handleXAxisChange,
-} from "../../../utilities/graph-utils.js";
+} from "../../../utilities/graph-backup-utils.js";
 import styles from "../Rankings.module.css";
 
 const columnNames = [
@@ -31,18 +31,9 @@ const columnNames = [
   "FTr",
   "3PAr",
   "TS%",
-  "OeFG%",
-  "OTOV%",
-  "ORB%",
-  "OFT/FGA",
-  "DeFG%",
-  "DTOV%",
-  "DRB%",
-  "DFT/FGA",
-  "W/L%",
-  "won_last",
-  "won_last_3",
 ];
+
+// "OeFG%","OTOV%","ORB%","OFT/FGA","DeFG%","DTOV%","DRB%","DFT/FGA","W/L%","won_last","won_last_3",
 
 const Visualization = (props) => {
   const { data } = props;
@@ -60,7 +51,7 @@ const Visualization = (props) => {
   }, [filteredData, xAxisColumn]);
 
   return (
-    <Flex p="10" flexDir="column" marginTop={"350px"}>
+    <Flex p="10" flexDir="column" marginTop={"550px"}>
       <HStack>
         <Stack>
           {columnNames.map((column) => (

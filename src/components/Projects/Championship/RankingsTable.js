@@ -62,7 +62,6 @@ const columnNames = [
   "DRB%",
   "DFT/FGA",
   "W/L%",
-  "Champion",
   "won_last",
   "won_last_3",
 ];
@@ -81,6 +80,16 @@ const RankingsTable = (props) => {
 
   useEffect(() => {
     setFilteredData(data);
+    handleToggleActiveTeamButtonClick(
+      "active",
+      data,
+      filters,
+      searchText,
+      setFilters,
+      setFilteredData,
+      setCurrentPage,
+      setActiveButton
+    );
   }, [data]);
 
   const { paginatedData: displayedData, maxPage } = paginateData(
@@ -227,7 +236,9 @@ const RankingsTable = (props) => {
                       <Td>{rank}</Td>
                       <Td>{row["Year"]}</Td>
                       <Td>{row["Team"]}</Td>
-                      <Td isNumeric>{Math.round(row["pred"] * 100) / 100}</Td>
+                      <Td isNumeric>
+                        {Math.round(row["pred"] * 10000) / 100}%
+                      </Td>
                       <Td>
                         <Box
                           display="flex"
