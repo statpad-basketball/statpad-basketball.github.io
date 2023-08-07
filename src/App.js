@@ -10,10 +10,11 @@ import About from "./components/About/About";
 import ExampleArticle from "./components/Articles/ExampleArticle";
 import Rankings from "./components/Projects/Rankings-Updated";
 import Methodology from "./components/Projects/Methodology";
-import Visualization from "./components/Projects/Visualization";
 import ChampRankings from "./components/Projects/Championship/Champ-Rankings";
 import ChampMethodology from "./components/Projects/Championship/Champ-Methodology";
 import Page404 from "./components/404/404";
+import SentimentRankings from "./components/Projects/Sentiment/Sentiment-Rankings";
+import SentimentMethodology from "./components/Projects/Sentiment/Sentiment-Methodology";
 
 function App() {
   return (
@@ -54,6 +55,24 @@ function App() {
                 <>
                   <SubNavbar />
                   <About />
+                </>
+              }
+            />
+            <Route
+              path="/sentiment-rankings"
+              element={
+                <>
+                  <SubNavbar />
+                  <SentimentRankings />
+                </>
+              }
+            />
+            <Route
+              path="/sentiment-methods"
+              element={
+                <>
+                  <SubNavbar />
+                  <SentimentMethodology />
                 </>
               }
             />

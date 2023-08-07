@@ -27,6 +27,30 @@ const Projects = () => {
         Explore our completed projects:
       </Text>
       <ProjectPart
+        title="NBA SENTIMENT"
+        date="AUGUST 2023"
+        desc="Which NBA teams and players are most popular? Most hated? Most talked about? We analyze thousands of Reddit comments daily to determine the sentiment of NBA fans towards each team and player."
+        button1="View Rankings"
+        buttonLink1="/sentiment-rankings"
+        buttonColor="orange"
+        button2="View Methodology"
+        buttonLink2="/sentiment-methods"
+        buttonColor2="gray"
+        img="wiggins.svg"
+      />
+      <ProjectPart
+        title="CHAMPIONSHIP PREDICTOR"
+        date="MAY 2023"
+        desc="What team is most poised to win the 2023 NBA Championship? Which teams have the highest playoff probabilities? We project the success of each team in the 2023 season."
+        button1="View Rankings"
+        buttonLink1="/champ-rankings"
+        buttonColor="orange"
+        button2="View Methodology"
+        buttonLink2="/champ-methods"
+        buttonColor2="gray"
+        img="wiggins.svg"
+      />
+      <ProjectPart
         title="HALL OF FAME CALCULATOR"
         date="AUGUST 2022"
         desc="Which factors make NBA players the most likely to reach the Basketball Hall of Fame? Is it NBA Championships? All-Star Selections? MVP Awards? Using machine learning, we build a model to predict the probability of every NBA player making the Hall of Fame if they retired today."
@@ -41,18 +65,6 @@ const Projects = () => {
       <Text pb="5" fontSize="2xl" as="i">
         See what we've been working on recently:
       </Text>
-      <ProjectPart
-        title="CHAMPIONSHIP PREDICTOR"
-        date="COMING SOON"
-        desc="What team is most poised to win the 2023 NBA Championship? Which teams have the highest playoff probabilities? We project the success of each team in the 2023 season."
-        button1="View Rankings"
-        buttonLink1="/champ-rankings"
-        buttonColor="orange"
-        button2="View Methodology"
-        buttonLink2="/champ-methods"
-        buttonColor2="gray"
-        img="wiggins.svg"
-      />
       <ProjectPart
         title="ROOKIE SUCCESS MODEL"
         date="COMING SOON"
