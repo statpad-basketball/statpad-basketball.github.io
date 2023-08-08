@@ -37,8 +37,6 @@
     position: absolute;
     width: 1309px;
     height: 188.99px;
-    left: 70px;
-    top: 524.01px;
 
     font-family: 'Open Sans';
     font-style: normal;
@@ -55,7 +53,7 @@
     width: 1317px;
     height: 54.98px;
     left: 47px;
-    top: 789px;
+    top: 889px;
 
     font-family: 'Open Sans';
     font-style: italic;
@@ -73,7 +71,7 @@
     width: 1309px;
     height: 188.99px;
     left: 55px;
-    top: 907.01px;
+    top: 1007.01px;
 
     font-family: 'Open Sans';
     font-style: normal;
@@ -90,7 +88,7 @@
     width: 1317px;
     height: 54.98px;
     left: 47px;
-    top: 1171px;
+    top: 1671px;
 
     font-family: 'Open Sans';
     font-style: italic;
@@ -108,7 +106,7 @@
     width: 693px;
     height: 569px;
     left: 671px;
-    top: 1263px;
+    top: 1763px;
 
     font-family: 'Open Sans';
     font-style: normal;
@@ -120,12 +118,13 @@
     color: #000000;
 }
 
+
 .coefficientsTable {
     position: absolute;
     width: 540px;
     height: 555px;
     left: 73px;
-    top: 1268px;
+    top: 2868px;
 
     /*background: #474747;*/
 }
@@ -135,7 +134,7 @@
     width: 1317px;
     height: 54.98px;
     left: 62px;
-    top: 1730px;
+    top: 2930px;
 
     font-family: 'Open Sans';
     font-style: italic;
@@ -153,7 +152,7 @@
     width: 1309px;
     height: 188.99px;
     left: 70px;
-    top: 1798.01px;
+    top: 2998.01px;
 
     font-family: 'Open Sans';
     font-style: normal;
