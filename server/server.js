@@ -2,7 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
 const axios = require("axios");
+const dotenv = require("dotenv");
 
+dotenv.config();
+
+const uri = process.env.MONGODB_URI;
 const app = express();
 const port = 2000;
 
@@ -11,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-const client = new MongoClient("mongodb://localhost", {
+const client = new MongoClient(uri, {
   useUnifiedTopology: true,
 });
 client

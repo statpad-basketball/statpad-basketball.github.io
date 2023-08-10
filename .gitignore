@@ -5,3 +5,4 @@ public/data/
 data/db/
 statpad_python/
 .vscode/
+.env
