@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 
 //pages & components
 import Navbar from "./components/Navbar/Navbar";
@@ -17,6 +18,10 @@ import SentimentRankings from "./components/Projects/Sentiment/Sentiment-Ranking
 import SentimentMethodology from "./components/Projects/Sentiment/Sentiment-Methodology";
 
 function App() {
+  useEffect(() => {
+    document.title = "Statpad"; // Change the title here
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
