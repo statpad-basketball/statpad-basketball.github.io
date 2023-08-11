@@ -10,11 +10,9 @@ import {
 import { updateScreenWidth } from "../../../utilities/general-utils.js";
 import ByBar from "../../Articles/ByBar.js";
 import styles from "../Rankings.module.css";
-import ToolSelector from "./ToolSelector.js";
+import ToolSelector from "../ToolSelector.js";
 
-const tooSmallForHeadersWidth = 1200; // Adjust the value as per your requirements
-
-const champColumnNames = [
+const xColumnNames = [
   "Age",
   "MOV",
   "SOS",
@@ -29,11 +27,20 @@ const champColumnNames = [
 ];
 
 const tooltipColumnNames = ["Year", "Team"];
-
 // "OeFG%","OTOV%","ORB%","OFT/FGA","DeFG%","DTOV%","DRB%","DFT/FGA","W/L%","won_last","won_last_3",
 const collectionName = "championship_probs";
 const yPredAttribute = "pred";
 const yTrueAttribute = "Champion";
+const activeButtonState = "all";
+const useBubbles = true;
+const tooSmallForHeadersWidth = 1200; // Adjust the value as per your requirements
+const searchTextColumn = "Team";
+const toggleColumn = "Year";
+const toggleActiveValue = { min: 2023, max: 2023 };
+const toggleHistoricValue = { min: 1990, max: 2022 };
+const displayYear = true;
+const useSandbox = false;
+const useComparison = false;
 
 const ChampRankings = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -79,10 +86,19 @@ const ChampRankings = () => {
       <ToolSelector
         screenWidth={screenWidth}
         collectionName={collectionName}
-        columnNames={champColumnNames}
+        columnNames={xColumnNames}
         yPredAttribute={yPredAttribute}
         yTrueAttribute={yTrueAttribute}
         tooltipColumnNames={tooltipColumnNames}
+        activeButtonState={activeButtonState}
+        useBubbles={useBubbles}
+        searchTextColumn={searchTextColumn}
+        toggleColumn={toggleColumn}
+        toggleActiveValue={toggleActiveValue}
+        toggleHistoricValue={toggleHistoricValue}
+        displayYear={displayYear}
+        useSandbox={useSandbox}
+        useComparison={useComparison}
       ></ToolSelector>
     </Flex>
   );

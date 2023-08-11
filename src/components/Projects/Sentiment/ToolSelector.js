@@ -8,7 +8,7 @@ import {
   StylesProvider,
 } from "@chakra-ui/react";
 import RankingsTable from "./RankingsTable";
-import Visualization from "./Visualization";
+import Visualization from "../Visualization";
 import styles from "../Rankings.module.css";
 import { fetchData, sortData } from "../../../utilities/data-backend-utils.js"; // import from your utility file
 //TODO: Add style to text

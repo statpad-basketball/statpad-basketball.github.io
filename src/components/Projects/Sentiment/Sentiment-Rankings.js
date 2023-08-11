@@ -12,7 +12,7 @@ import ByBar from "../../Articles/ByBar.js";
 import styles from "../Rankings.module.css";
 import ToolSelector from "./ToolSelector.js";
 
-const sentColumnNames = ["Sentiment"];
+const xColumnNames = ["Sentiment"];
 const tooltipColumnNames = ["Team"];
 
 // "OeFG%","OTOV%","ORB%","OFT/FGA","DeFG%","DTOV%","DRB%","DFT/FGA","W/L%","won_last","won_last_3",
@@ -64,7 +64,7 @@ const SentimentRankings = () => {
       <ToolSelector
         screenWidth={screenWidth}
         collectionName={collectionName}
-        columnNames={sentColumnNames}
+        columnNames={xColumnNames}
         yPredAttribute={yPredAttribute}
         yTrueAttribute={yTrueAttribute}
         tooltipColumnNames={tooltipColumnNames}

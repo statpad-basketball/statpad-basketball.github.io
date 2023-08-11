@@ -16,25 +16,17 @@ import {
 import {
   createScatterPlot,
   handleXAxisChange,
-} from "../../utilities/graph-utils.js";
+} from "../../utilities/graph-backup-utils.js";
 import styles from "./Rankings.module.css";
 
-const columnNames = [
-  "MVP",
-  "All_Star",
-  "Field_Goal_Percentage",
-  "Total_Rebounds",
-  "Total_Blocks",
-  "Points_Per_Game_Award",
-  "Win_Shares",
-  "Player_Efficiency_Rating",
-  "Offensive_Win_Shares",
-  "Defensive_Win_Shares",
-  "Championships",
-];
-
 const Visualization = (props) => {
-  const { data } = props;
+  const {
+    data,
+    columnNames,
+    yPredAttribute,
+    yTrueAttribute,
+    tooltipColumnNames,
+  } = props;
   const [filters, setFilters] = useState({});
   const [filteredData, setFilteredData] = useState([]);
   const [xAxisColumn, setXAxisColumn] = useState(columnNames[0]);
@@ -45,7 +37,14 @@ const Visualization = (props) => {
   }, [data]);
 
   useEffect(() => {
-    createScatterPlot(chartRef, filteredData, xAxisColumn);
+    createScatterPlot(
+      chartRef,
+      filteredData,
+      xAxisColumn,
+      yPredAttribute,
+      yTrueAttribute,
+      tooltipColumnNames
+    );
   }, [filteredData, xAxisColumn]);
 
   return (

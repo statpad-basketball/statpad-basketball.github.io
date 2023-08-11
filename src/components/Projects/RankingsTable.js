@@ -23,13 +23,13 @@ import {
   handleSearchAndFilter,
   handleResetFilters,
   handleFilterChange,
-  handleToggleEligibilityButtonClick,
+  handleToggleFilterButtonClick,
 } from "../../utilities/data-backend-utils.js"; // import from your utility file
 
 import {
   toggleShowAllStats,
   getPageRange,
-  isPlayerPresent,
+  isEntityPresent,
   goToFirstPage,
   goToPreviousPage,
   goToNextPage,
@@ -40,32 +40,30 @@ import {
 import RankingsTextBubble from "./RankingsTextBubble.js";
 import styles from "./Rankings.module.css";
 
-//const columnNames = ['Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'PER', 'VORP', 'MVP', 'Champ', 'DPOY'];
-const columnNames = [
-  "MVP",
-  "All_Star",
-  "Field_Goal_Percentage",
-  "Total_Rebounds",
-  "Total_Blocks",
-  "Points_Per_Game_Award",
-  "Win_Shares",
-  "Player_Efficiency_Rating",
-  "Offensive_Win_Shares",
-  "Defensive_Win_Shares",
-  "Championships",
-];
-
 const tooSmallForBubblesWidth = 1250; // Adjust the value as per your requirements
 
 const RankingsTable = (props) => {
-  const { screenWidth, data } = props;
+  const {
+    screenWidth,
+    data,
+    columnNames,
+    activeButtonState,
+    useBubbles,
+    searchTextColumn,
+    toggleColumn,
+    toggleActiveValue,
+    toggleHistoricValue,
+    yPredAttribute,
+    yTrueAttribute,
+    displayYear,
+  } = props;
   const [currentPage, setCurrentPage] = useState(1);
-  const [playersPerPage, setPlayersPerPage] = useState(25);
+  const [entitiesPerPage, setEntitiesPerPage] = useState(25);
   const [filters, setFilters] = useState({});
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [showAllStats, setShowAllStats] = useState(false);
-  const [activeButton, setActiveButton] = useState("all");
+  const [activeButton, setActiveButton] = useState(activeButtonState);
 
   useEffect(() => {
     setFilteredData(data);
@@ -74,12 +72,20 @@ const RankingsTable = (props) => {
   const { paginatedData: displayedData, maxPage } = paginateData(
     filteredData,
     currentPage,
-    playersPerPage
+    entitiesPerPage
   );
 
   // Find if LeBron James or Bill Russell are present in the displayedData
-  const isLeBronJamesPresent = isPlayerPresent(displayedData, "LeBron James");
-  const isBillRussellPresent = isPlayerPresent(displayedData, "Bill Russell");
+  const isLeBronJamesPresent = isEntityPresent(
+    displayedData,
+    "LeBron James",
+    useBubbles
+  );
+  const isBillRussellPresent = isEntityPresent(
+    displayedData,
+    "Bill Russell",
+    useBubbles
+  );
 
   return (
     <Flex p="10" flexDir="column">
@@ -137,18 +143,24 @@ const RankingsTable = (props) => {
             fontSize="1xl"
             onClick={() => toggleShowAllStats(setShowAllStats)}
           >
-            {showAllStats ? "Hide Player Stats" : "See Player Stats"}
+            {showAllStats
+              ? `Hide ${searchTextColumn} Stats`
+              : `See ${searchTextColumn} Stats`}
           </Button>
           <ButtonGroup spacing={0} isAttached={true}>
             <Button
               colorScheme="custom"
               bg={activeButton === "all" ? "rgba(249, 250, 251, 1)" : "white"}
               onClick={() =>
-                handleToggleEligibilityButtonClick(
+                handleToggleFilterButtonClick(
                   "all",
                   data,
                   filters,
                   searchText,
+                  searchTextColumn,
+                  toggleColumn,
+                  toggleActiveValue,
+                  toggleHistoricValue,
                   setFilters,
                   setFilteredData,
                   setCurrentPage,
@@ -159,7 +171,7 @@ const RankingsTable = (props) => {
               color="rgba(52, 64, 84, 1)"
               border="1px solid rgba(208, 213, 221, 1)"
             >
-              All Players
+              All {searchTextColumn}s
             </Button>
             <Button
               colorScheme="custom"
@@ -167,11 +179,15 @@ const RankingsTable = (props) => {
                 activeButton === "active" ? "rgba(249, 250, 251, 1)" : "white"
               }
               onClick={() =>
-                handleToggleEligibilityButtonClick(
+                handleToggleFilterButtonClick(
                   "active",
                   data,
                   filters,
                   searchText,
+                  searchTextColumn,
+                  toggleColumn,
+                  toggleActiveValue,
+                  toggleHistoricValue,
                   setFilters,
                   setFilteredData,
                   setCurrentPage,
@@ -184,7 +200,7 @@ const RankingsTable = (props) => {
               borderTop="1px solid rgba(208, 213, 221, 1)"
               borderBottom="1px solid rgba(208, 213, 221, 1)"
             >
-              Active Players
+              Active {searchTextColumn}s
             </Button>
             <Button
               colorScheme="custom"
@@ -192,11 +208,15 @@ const RankingsTable = (props) => {
                 activeButton === "historic" ? "rgba(249, 250, 251, 1)" : "white"
               }
               onClick={() =>
-                handleToggleEligibilityButtonClick(
+                handleToggleFilterButtonClick(
                   "historic",
                   data,
                   filters,
                   searchText,
+                  searchTextColumn,
+                  toggleColumn,
+                  toggleActiveValue,
+                  toggleHistoricValue,
                   setFilters,
                   setFilteredData,
                   setCurrentPage,
@@ -207,7 +227,7 @@ const RankingsTable = (props) => {
               color="rgba(52, 64, 84, 1)"
               border="1px solid rgba(208, 213, 221, 1)"
             >
-              Historic Players
+              Historic {searchTextColumn}s
             </Button>
           </ButtonGroup>
           <HStack>
@@ -218,7 +238,7 @@ const RankingsTable = (props) => {
               onKeyUp={() =>
                 handleSearchAndFilter(
                   data,
-                  "Player",
+                  searchTextColumn,
                   filters,
                   searchText,
                   setFilteredData
@@ -243,32 +263,34 @@ const RankingsTable = (props) => {
               <Thead>
                 <Tr>
                   <Th>Rank</Th>
-                  <Th>Player Name</Th>
-                  <Th isNumeric>HOF Probability</Th>
-                  <Th isNumeric>Hall of Fame</Th>
+                  {displayYear && <Th>Year</Th>}
+                  <Th>{searchTextColumn} Name</Th>
+                  <Th isNumeric>Probability</Th>
+                  <Th isNumeric>{yTrueAttribute}</Th>
                   {showAllStats &&
                     columnNames.map((column) => <Th key={column}>{column}</Th>)}
                 </Tr>
               </Thead>
               <Tbody>
                 {displayedData.map((row, index) => {
-                  const rank = (currentPage - 1) * playersPerPage + index + 1;
-                  const playerName = row["Player"];
+                  const rank = (currentPage - 1) * entitiesPerPage + index + 1;
+                  const name = row[searchTextColumn];
                   return (
                     <Tr
                       key={index}
                       color={
-                        playerName === "LeBron James"
+                        name === "LeBron James"
                           ? "#E1AA0F"
-                          : playerName === "Bill Russell"
+                          : name === "Bill Russell"
                           ? "green"
                           : undefined
                       }
                     >
                       <Td>{rank}</Td>
-                      <Td>{row["Player"]}</Td>
+                      {displayYear && <Td>{row["Year"]}</Td>}
+                      <Td>{row[searchTextColumn]}</Td>
                       <Td isNumeric>
-                        {Math.round(row["Prediction"] * 100) / 100}
+                        {Math.round(row[yPredAttribute] * 100) / 100}
                       </Td>
                       <Td>
                         <Box
@@ -289,11 +311,13 @@ const RankingsTable = (props) => {
                           lineHeight="1.5rem"
                           letterSpacing="-0.00375rem"
                         >
-                          {row["Eligible"] === 0
+                          {toggleColumn === "Eligible" &&
+                          row[toggleColumn] === 0
                             ? "Not Eligible"
-                            : row["Hall_of_Fame"]
-                            ? "Hall of Fame"
-                            : "Not Hall of Fame"}
+                            : row[yTrueAttribute] === "Y" ||
+                              row[yTrueAttribute] === 1
+                            ? `${yTrueAttribute}`
+                            : `Not ${yTrueAttribute}`}
                         </Box>
                       </Td>
                       {showAllStats &&
@@ -309,7 +333,7 @@ const RankingsTable = (props) => {
           <TableContainer>
             <Table>
               <Tbody>
-                {filteredData.length > playersPerPage && (
+                {filteredData.length > entitiesPerPage && (
                   <Tr>
                     <Td colSpan={columnNames.length + 3}>
                       <Stack
@@ -343,7 +367,7 @@ const RankingsTable = (props) => {
                               currentPage,
                               setCurrentPage,
                               filteredData,
-                              playersPerPage
+                              entitiesPerPage
                             )
                           }
                         >
@@ -356,7 +380,7 @@ const RankingsTable = (props) => {
                             goToLastPage(
                               setCurrentPage,
                               filteredData,
-                              playersPerPage
+                              entitiesPerPage
                             )
                           }
                         >
@@ -398,7 +422,7 @@ const RankingsTable = (props) => {
         onClick={() =>
           handleSearchAndFilter(
             data,
-            "Player",
+            searchTextColumn,
             filters,
             searchText,
             setFilteredData

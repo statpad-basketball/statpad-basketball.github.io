@@ -13,7 +13,34 @@ import ByBar from "../Articles/ByBar.js";
 import ToolSelector from "./ToolSelector.js";
 import styles from "./Rankings.module.css";
 
+const xColumnNames = [
+  "MVP",
+  "All_Star",
+  "Field_Goal_Percentage",
+  "Total_Rebounds",
+  "Total_Blocks",
+  "Points_Per_Game_Award",
+  "Win_Shares",
+  "Player_Efficiency_Rating",
+  "Offensive_Win_Shares",
+  "Defensive_Win_Shares",
+  "Championships",
+];
+
+const tooltipColumnNames = ["Player"];
+const collectionName = "hof_probs_v1_all";
+const yPredAttribute = "Prediction";
+const yTrueAttribute = "Hall_of_Fame";
+const activeButtonState = "all";
+const useBubbles = true;
 const tooSmallForHeadersWidth = 1200; // Adjust the value as per your requirements
+const searchTextColumn = "Player";
+const toggleColumn = "Eligible";
+const toggleActiveValue = 0;
+const toggleHistoricValue = 1;
+const displayYear = false;
+const useSandbox = true;
+const useComparison = true;
 
 const RankingsUpdated = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -38,7 +65,6 @@ const RankingsUpdated = () => {
       <Heading className={styles.hofText} fontSize={fontSize}>
         HALL OF FAME CALCULATOR
       </Heading>
-
       <ByBar />
       {screenWidth >= tooSmallForHeadersWidth && (
         <>
@@ -48,7 +74,6 @@ const RankingsUpdated = () => {
           />
         </>
       )}
-
       <Text className={styles.questionText} pb="5" fontSize="2xl" as="i">
         In the eyes of voters, what makes an NBA player worthy of induction into
         the Basketball Hall of Fame?
@@ -62,8 +87,23 @@ const RankingsUpdated = () => {
           here.
         </Link>
       </Text>
-
-      <ToolSelector screenWidth={screenWidth} />
+      <ToolSelector
+        screenWidth={screenWidth}
+        collectionName={collectionName}
+        columnNames={xColumnNames}
+        yPredAttribute={yPredAttribute}
+        yTrueAttribute={yTrueAttribute}
+        tooltipColumnNames={tooltipColumnNames}
+        activeButtonState={activeButtonState}
+        useBubbles={useBubbles}
+        searchTextColumn={searchTextColumn}
+        toggleColumn={toggleColumn}
+        toggleActiveValue={toggleActiveValue}
+        toggleHistoricValue={toggleHistoricValue}
+        displayYear={displayYear}
+        useSandbox={useSandbox}
+        useComparison={useComparison}
+      ></ToolSelector>{" "}
     </Flex>
   );
 };
