@@ -18,8 +18,8 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import ByBar from "../Articles/ByBar";
-import styles from "./Methods.module.css";
+import ByBar from "../../../Articles/ByBar";
+import styles from "../../Methods.module.css";
 
 //TODO: Add style to text
 

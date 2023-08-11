@@ -7,9 +7,9 @@ import {
   TabPanel,
   StylesProvider,
 } from "@chakra-ui/react";
-import Sandbox from "./Sandbox";
+import Sandbox from "./HOF/Sandbox/Sandbox";
 import RankingsTable from "./RankingsTable";
-import ComparisonTool from "./ComparisonTool";
+import ComparisonTool from "./HOF/Comparison/ComparisonTool";
 import Visualization from "./Visualization";
 import styles from "./Rankings.module.css";
 import { fetchData, sortData } from "../../utilities/data-backend-utils.js"; // import from your utility file
@@ -104,8 +104,16 @@ const ToolSelector = (props) => {
             />
           }
         </TabPanel>
-        {useSandbox && <TabPanel>{<Sandbox data={data} />}</TabPanel>}
-        {useComparison && <TabPanel>{<ComparisonTool data={data} />}</TabPanel>}
+        {useSandbox && (
+          <TabPanel>
+            {<Sandbox data={data} columnNames={columnNames} />}
+          </TabPanel>
+        )}
+        {useComparison && (
+          <TabPanel>
+            {<ComparisonTool data={data} columnNames={columnNames} />}
+          </TabPanel>
+        )}
         <TabPanel>
           {
             <Visualization

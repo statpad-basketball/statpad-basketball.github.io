@@ -23,25 +23,11 @@ import {
 import {
   debouncedHandleSearchInputChange,
   handleNameSelection,
-} from "../../utilities/search-utils.js";
-import { getCellColor } from "../../utilities/comparison-utils.js";
-
-const columnNames = [
-  "MVP",
-  "All_Star",
-  "Field_Goal_Percentage",
-  "Total_Rebounds",
-  "Total_Blocks",
-  "Points_Per_Game_Award",
-  "Win_Shares",
-  "Player_Efficiency_Rating",
-  "Offensive_Win_Shares",
-  "Defensive_Win_Shares",
-  "Championships",
-];
+} from "../../../../utilities/search-utils.js";
+import { getCellColor } from "../../../../utilities/comparison-utils.js";
 
 const ComparisonTool = (props) => {
-  const { data } = props;
+  const { data, columnNames } = props;
   const [nameSuggestions1, setNameSuggestions1] = useState([]);
   const [nameSuggestions2, setNameSuggestions2] = useState([]);
   const [selectedPlayerData1, setSelectedPlayerData1] = useState({});
