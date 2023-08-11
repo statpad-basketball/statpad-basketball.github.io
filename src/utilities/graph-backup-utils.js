@@ -1,7 +1,15 @@
 import * as d3 from "d3";
 import tip from "d3-tip";
 
-export const createScatterPlot = (chartRef, filteredData, xAxisColumn) => {
+export const createScatterPlot = (
+  chartRef,
+  filteredData,
+  xAxisColumn,
+  yPredAttribute,
+  yTrueAttribute,
+  tooltipColumnNames
+) => {
+  // Make the min flexible
   const xScale = d3
     .scaleLinear()
     .domain([
@@ -14,10 +22,10 @@ export const createScatterPlot = (chartRef, filteredData, xAxisColumn) => {
     .scaleLinear()
     .domain([
       Math.min(
-        d3.min(filteredData, (d) => d.pred),
+        d3.min(filteredData, (d) => d[yPredAttribute]),
         0
       ),
-      d3.max(filteredData, (d) => d.pred),
+      d3.max(filteredData, (d) => d[yPredAttribute]),
     ])
     .range([360, 40]);
 
@@ -43,13 +51,17 @@ export const createScatterPlot = (chartRef, filteredData, xAxisColumn) => {
 
   // Define handleMouseOver and handleMouseOut functions
   function handleMouseOver(event, d) {
-    const { Team, pred, Champion, Year } = d;
+    const pred = d[yPredAttribute];
 
     d3.select(this).attr("r", 7).style("fill", "orange");
 
     tooltip.show(d, this);
 
     const tooltipBox = chart.append("g").attr("class", "tooltip-box");
+
+    // 48 for x, prob, true
+    // 16 for each additional line
+    const boxHeight = tooltipColumnNames.length * 16 + 48;
 
     tooltipBox
       .append("rect")
@@ -62,27 +74,30 @@ export const createScatterPlot = (chartRef, filteredData, xAxisColumn) => {
       .attr("ry", 5)
       .style("fill", "white");
 
-    tooltipBox
-      .append("text")
-      .attr("class", "tooltip-text")
-      .attr("x", xScale(d[xAxisColumn]) + 10)
-      .attr("y", yScale(pred) - 5)
-      .text(`Year: ${Year}`)
-      .style("font-size", "12px");
+    const xValue = xScale(d[xAxisColumn]) + 10;
+    const yBaseValue = yScale(pred);
+
+    const yOffset = [-5, 10]; // Y offsets for the text lines
+
+    for (let i = 0; i < tooltipColumnNames.length; i++) {
+      const tooltipText = `${tooltipColumnNames[i]}: ${
+        d[tooltipColumnNames[i]]
+      }`;
+
+      tooltipBox
+        .append("text")
+        .attr("class", "tooltip-text")
+        .attr("x", xValue)
+        .attr("y", yBaseValue + yOffset[i])
+        .text(tooltipText)
+        .style("font-size", "12px");
+    }
 
     tooltipBox
       .append("text")
       .attr("class", "tooltip-text")
       .attr("x", xScale(d[xAxisColumn]) + 10)
-      .attr("y", yScale(pred) + 10)
-      .text(`Team: ${Team}`)
-      .style("font-size", "12px");
-
-    tooltipBox
-      .append("text")
-      .attr("class", "tooltip-text")
-      .attr("x", xScale(d[xAxisColumn]) + 10)
-      .attr("y", yScale(pred) + 40)
+      .attr("y", yScale(pred) + 25)
       .text(`${xAxisColumn}: ${d[xAxisColumn]}`)
       .style("font-size", "12px");
 
@@ -90,31 +105,26 @@ export const createScatterPlot = (chartRef, filteredData, xAxisColumn) => {
       .append("text")
       .attr("class", "tooltip-text")
       .attr("x", xScale(d[xAxisColumn]) + 10)
-      .attr("y", yScale(pred) + 25)
-      .text(`Probability: ${Math.round(pred * 100) / 100}`)
-      .style("font-size", "12px");
+      .attr("y", yScale(pred) + 40)
+      .text(`${yPredAttribute}: ${Math.round(pred * 100) / 100}`)
+      .style("font-size", "12px")
+      .style("font-weight", "bold");
 
-    if (Year === 2023) {
+    // Only plot if the true value is not null
+    if (yTrueAttribute !== null) {
       tooltipBox
         .append("text")
         .attr("class", "tooltip-text")
         .attr("x", xScale(d[xAxisColumn]) + 10)
         .attr("y", yScale(pred) + 55)
-        .text("Champion: Undetermined")
-        .style("font-size", "12px");
-    } else {
-      tooltipBox
-        .append("text")
-        .attr("class", "tooltip-text")
-        .attr("x", xScale(d[xAxisColumn]) + 10)
-        .attr("y", yScale(pred) + 55)
-        .text(`Champion: ${Champion}`)
+        .text(`${yTrueAttribute}: ${d[yTrueAttribute]}`)
         .style("font-size", "12px");
     }
   }
 
   function handleMouseOut(event, d) {
-    const fillColor = d.Champion === "Y" ? "green" : "red";
+    const fillColor =
+      d[yTrueAttribute] === "Y" || d[yTrueAttribute] === 1 ? "green" : "red";
 
     d3.select(this).attr("r", 5).style("fill", fillColor);
 
@@ -129,9 +139,11 @@ export const createScatterPlot = (chartRef, filteredData, xAxisColumn) => {
     .enter()
     .append("circle")
     .attr("cx", (d) => xScale(d[xAxisColumn]))
-    .attr("cy", (d) => yScale(d["pred"]))
+    .attr("cy", (d) => yScale(d[yPredAttribute]))
     .attr("r", 5)
-    .style("fill", (d) => (d["Champion"] === "Y" ? "green" : "red")) // Update the fill color based on "Champion" value
+    .style("fill", (d) =>
+      d[yTrueAttribute] === "Y" || d[yTrueAttribute] === 1 ? "green" : "red"
+    ) // Update the fill color based on "Champion" value
     .on("mouseover", handleMouseOver)
     .on("mouseout", handleMouseOut);
 

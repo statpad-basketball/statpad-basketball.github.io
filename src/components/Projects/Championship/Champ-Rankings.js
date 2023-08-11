@@ -14,6 +14,27 @@ import ToolSelector from "./ToolSelector.js";
 
 const tooSmallForHeadersWidth = 1200; // Adjust the value as per your requirements
 
+const champColumnNames = [
+  "Age",
+  "MOV",
+  "SOS",
+  "SRS",
+  "ORtg",
+  "DRtg",
+  "NRtg",
+  "Pace",
+  "FTr",
+  "3PAr",
+  "TS%",
+];
+
+const tooltipColumnNames = ["Year", "Team"];
+
+// "OeFG%","OTOV%","ORB%","OFT/FGA","DeFG%","DTOV%","DRB%","DFT/FGA","W/L%","won_last","won_last_3",
+const collectionName = "championship_probs";
+const yPredAttribute = "pred";
+const yTrueAttribute = "Champion";
+
 const ChampRankings = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const fontSize = useBreakpointValue({
@@ -55,7 +76,14 @@ const ChampRankings = () => {
         Our live championship model is updated daily
       </Text>
 
-      <ToolSelector screenWidth={screenWidth}></ToolSelector>
+      <ToolSelector
+        screenWidth={screenWidth}
+        collectionName={collectionName}
+        columnNames={champColumnNames}
+        yPredAttribute={yPredAttribute}
+        yTrueAttribute={yTrueAttribute}
+        tooltipColumnNames={tooltipColumnNames}
+      ></ToolSelector>
     </Flex>
   );
 };

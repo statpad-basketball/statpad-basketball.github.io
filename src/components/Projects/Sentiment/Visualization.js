@@ -19,24 +19,14 @@ import {
 } from "../../../utilities/graph-backup-utils.js";
 import styles from "../Rankings.module.css";
 
-const columnNames = [
-  "Age",
-  "MOV",
-  "SOS",
-  "SRS",
-  "ORtg",
-  "DRtg",
-  "NRtg",
-  "Pace",
-  "FTr",
-  "3PAr",
-  "TS%",
-];
-
-// "OeFG%","OTOV%","ORB%","OFT/FGA","DeFG%","DTOV%","DRB%","DFT/FGA","W/L%","won_last","won_last_3",
-
 const Visualization = (props) => {
-  const { data } = props;
+  const {
+    data,
+    columnNames,
+    yPredAttribute,
+    yTrueAttribute,
+    tooltipColumnNames,
+  } = props;
   const [filters, setFilters] = useState({});
   const [filteredData, setFilteredData] = useState([]);
   const [xAxisColumn, setXAxisColumn] = useState(columnNames[0]);
@@ -47,7 +37,14 @@ const Visualization = (props) => {
   }, [data]);
 
   useEffect(() => {
-    createScatterPlot(chartRef, filteredData, xAxisColumn);
+    createScatterPlot(
+      chartRef,
+      filteredData,
+      xAxisColumn,
+      yPredAttribute,
+      yTrueAttribute,
+      tooltipColumnNames
+    );
   }, [filteredData, xAxisColumn]);
 
   return (

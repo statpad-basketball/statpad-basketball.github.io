@@ -14,12 +14,20 @@ import { fetchData, sortData } from "../../../utilities/data-backend-utils.js"; 
 //TODO: Add style to text
 
 const ToolSelector = (props) => {
+  const {
+    screenWidth,
+    collectionName,
+    columnNames,
+    yPredAttribute,
+    yTrueAttribute,
+    tooltipColumnNames,
+  } = props;
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchAndSortData = async () => {
-      const fetchedData = await fetchData("hof-rankings", "championship_probs");
-      const sortedData = sortData(fetchedData, "pred");
+      const fetchedData = await fetchData("hof-rankings", collectionName);
+      const sortedData = sortData(fetchedData, yPredAttribute);
       setData(sortedData);
     };
 
@@ -49,9 +57,19 @@ const ToolSelector = (props) => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          {<RankingsTable screenWidth={props.screenWidth} data={data} />}
+          {<RankingsTable screenWidth={screenWidth} data={data} />}
         </TabPanel>
-        <TabPanel>{<Visualization data={data} />}</TabPanel>
+        <TabPanel>
+          {
+            <Visualization
+              data={data}
+              columnNames={columnNames}
+              yPredAttribute={yPredAttribute}
+              yTrueAttribute={yTrueAttribute}
+              tooltipColumnNames={tooltipColumnNames}
+            />
+          }
+        </TabPanel>
       </TabPanels>
     </Tabs>
   );
